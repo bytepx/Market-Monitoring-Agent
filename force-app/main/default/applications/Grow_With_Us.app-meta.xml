@@ -21,6 +21,11 @@
     <tabs>standard-Case</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
+    <tabs>Market_Event__c</tabs>
+    <tabs>ClientImpact__c</tabs>
+    <tabs>AdvisoryMessage__c</tabs>
+    <tabs>CommunicationLog__c</tabs>
+    <tabs>PreCallBrief__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Grow_With_Us_UtilityBar</utilityBar>
 </CustomApplication>
