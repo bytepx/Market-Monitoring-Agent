@@ -21,6 +21,7 @@
 		<members>Account.RiskProfile__c</members>
 		<members>Account.RM_Owner__c</members>
 		<members>Contact.LifeEventStatus__c</members>
+		<members>Account.PAN__c</members>
 		<name>CustomField</name>
 	</types>
 	<version>66.0</version>
