@@ -13,8 +13,25 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+<<<<<<< HEAD
 		<members>stockViewer</members>
 		<name>LightningComponentBundle</name>
+=======
+		<members>AdvisoryMessage__c</members>
+		<members>ClientImpact__c</members>
+		<members>CommunicationLog__c</members>
+		<members>Market_Event__c</members>
+		<members>PreCallBrief__c</members>
+		<name>CustomObject</name>
+	</types>
+	<types>
+		<members>Account.Preferred_Channel__c</members>
+		<members>Account.RiskProfile__c</members>
+		<members>Account.RM_Owner__c</members>
+		<members>Contact.LifeEventStatus__c</members>
+		<members>Account.PAN__c</members>
+		<name>CustomField</name>
+>>>>>>> origin/main
 	</types>
 	<version>66.0</version>
 </Package>
