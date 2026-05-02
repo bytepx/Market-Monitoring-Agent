@@ -51,6 +51,7 @@ export default class StockViewer extends LightningElement {
                 this.error = undefined;
             })
             .catch((error) => {
+                console.error("ERROR:", JSON.stringify(error));
                 this.error = error;
                 this.stocks = [];
             })

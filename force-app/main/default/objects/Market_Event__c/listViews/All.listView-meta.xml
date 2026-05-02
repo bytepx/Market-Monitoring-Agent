@@ -2,12 +2,13 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All</fullName>
     <columns>NAME</columns>
+    <columns>Event_Processed_Time__c</columns>
+    <columns>Sentiment__c</columns>
     <columns>EventDate__c</columns>
     <columns>Impact_Level__c</columns>
     <columns>Impact_Percentage__c</columns>
     <columns>Industry__c</columns>
     <columns>Reason__c</columns>
-    <columns>Sentiment__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

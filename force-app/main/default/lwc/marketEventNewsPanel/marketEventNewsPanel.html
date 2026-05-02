@@ -1,0 +1,77 @@
+<template>
+    <div class="container">
+
+        <div class="header-bar">
+
+    <div class="header-title">
+        📊 Latest Market News
+    </div>
+
+    <div class="header-actions">
+        <lightning-button-icon
+            icon-name="utility:refresh"
+            alternative-text="Refresh"
+            title="Refresh Data"
+            onclick={handleRefresh}>
+        </lightning-button-icon>
+    </div>
+
+</div>
+        <template if:false={event}>
+            <div class="loading">
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </div>
+        </template>
+        <template if:true={event}>
+            <div class="card">
+
+                <div class="title">
+                    {title}
+                </div>
+
+                <div class="badge negative">
+                    {event.Sentiment__c}
+                </div>
+
+                <p class="summary">
+                    {summary}
+                </p>
+
+                <p class="suggestion">
+                    💡 {suggestion}
+                </p>
+
+            </div>
+        </template>
+        <div class="button-group">
+            <button class={highClass} data-level="High" onclick={handleFilter}>
+            {highLabel}
+        </button>
+
+        <button class={mediumClass} data-level="Medium" onclick={handleFilter}>
+        {mediumLabel}
+        </button>
+
+        <button class={lowClass} data-level="Low" onclick={handleFilter}>
+        {lowLabel}
+</button>
+        </div>
+        <template if:true={hasCustomers}>
+            <div class="table-wrapper">
+                <div class="table-container">
+                    <lightning-datatable
+                        key-field="Id"
+                        data={customers}
+                        columns={columns}
+                        hide-checkbox-column
+                        onrowaction={handleRowAction}>
+                    </lightning-datatable>
+                </div>
+            </div>
+        </template>
+        <lightning-flow
+            if:true={showFlow}
+            onstatuschange={handleFlowStatus}>
+        </lightning-flow>
+    </div>
+</template>
