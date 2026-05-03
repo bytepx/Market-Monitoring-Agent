@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BotVersion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>v1</fullName>
+    <articleAnswersGPTEnabled>false</articleAnswersGPTEnabled>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Hi there! I’m RM Assist. I keep an eye on the markets, identify which clients need attention, and help you connect with them instantly.</message>
+                <messageIdentifier>efcb1725-e36b-46ea-b76b-33a2c38f41e7</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>8aa46fde-baa3-4ee5-bc87-e3caa6808846</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>fb7b4e92-a8f5-4af7-8f1a-a2a7a5dcd077</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Welcome</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Hi! I&apos;m your helpful bot.</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>I hit a temporary issue while working on that. Let’s give it another try.</message>
+                <messageIdentifier>13dc2b43-d3a1-458e-a9c5-8394eac5ac8c</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>286534a2-fe28-43b8-844a-6f99730fc889</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>eb602439-09c9-4db4-b669-5f30f1cbc3c0</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Error_Handling</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Unfortunately, a system error occurred. Let us start again.</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <citationsEnabled>false</citationsEnabled>
+    <company>A financial services firm specialising in wealth management and capital markets. It provides research, advisory, and trade execution services, supported by internal teams like research, product, and trading desks to serve clients efficiently.</company>
+    <conversationDefinitionPlanners>
+        <genAiPlannerName>RM_Assist</genAiPlannerName>
+    </conversationDefinitionPlanners>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <description>This variable may also be referred to as VerifiedCustomerId</description>
+        <developerName>VerifiedCustomerId</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>VerifiedCustomerId</label>
+        <visibility>Internal</visibility>
+    </conversationVariables>
+    <defaultStdObjForContactIdFltrEnabled>false</defaultStdObjForContactIdFltrEnabled>
+    <entryDialog>Welcome</entryDialog>
+    <intentDisambiguationEnabled>false</intentDisambiguationEnabled>
+    <intentV3Enabled>false</intentV3Enabled>
+    <isScriptCompatibleAgent>false</isScriptCompatibleAgent>
+    <knowledgeActionEnabled>false</knowledgeActionEnabled>
+    <knowledgeFallbackEnabled>false</knowledgeFallbackEnabled>
+    <role>Assist Relationship Managers by handling research queries, routing requests to internal teams, retrieving insights, and initiating trade approval workflows. Provide timely updates, maintain context, and ensure efficient collaboration via Slack.</role>
+    <smallTalkEnabled>false</smallTalkEnabled>
+    <staticPromptsEnabled>false</staticPromptsEnabled>
+    <stopRecPrompts>false</stopRecPrompts>
+    <stopWelcomePrompts>false</stopWelcomePrompts>
+    <surfacesEnabled>false</surfacesEnabled>
+    <toneType>Casual</toneType>
+</BotVersion>

@@ -1,0 +1,1209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>This agent is designed to enable efficient collaboration between Relationship Managers and internal teams by acting as a centralised interface within Slack for research, communication, and workflow execution. It helps Relationship Managers submit and track research queries, retrieve relevant insights from internal knowledge sources, and connect with subject matter experts across research, product, and trading teams. In addition, the agent supports the initiation and tracking of approval workflows for custom trades or non-standard client requests. The overall goal is to streamline internal processes, reduce turnaround time, improve visibility into request status, and enhance the quality and speed of decision-making through intelligent, context-aware assistance.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jak000001j3kL</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Agent_RM_16jak000001j3kL</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>GeneralCRM_16jak000001j3kL</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>GeneralFAQ_16jak000001j3kL</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>SlackExecutiveBrief_16jak000001j3kL</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>Slack_16jak000001j3kL</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Agent_RM_16jak000001j3kL</fullName>
+        <aiPluginUtterances>
+            <developerName>utterance_0_1777372664693</developerName>
+            <language>en_US</language>
+            <masterLabel>utterance_0_1777372664693</masterLabel>
+            <utterance>&quot;What are the demat holdings for this?&quot;
+&quot;Summarize this account</utterance>
+        </aiPluginUtterances>
+        <canEscalate>false</canEscalate>
+        <description>Use this action Use this subagent when a user asks for a market impact analysis, portfolio summary, or investment suggestions for a specific client or company by name. when a user wants a comprehensive summary of a client&apos;s profile, including their financial accounts and holdings. This action should also be used to provide strategic market suggestions and investment ideas based on the client&apos;s existing portfolio data</description>
+        <developerName>Agent_RM_16jak000001j3kL</developerName>
+        <genAiPluginInstructions>
+            <description>You are an expert Relationship Manager.
+For Bulk/Market Event Queries: If the user asks about market events, sector impacts, or &quot;all impacted accounts,&quot; use the &apos;MarketImpactGrounder&apos; action. NEVER use the standard &apos;Query Records&apos; or &apos;Get Record Details&apos; actions for questions about market events, sector-wide impacts, or &quot;all impacted accounts&quot;When you receive the list of impacted accounts, do NOT summarize them into a single paragraph. Always display every account returned in a Markdown table. Use columns: Client Name, Stocks, Market Value, and Impact Amount.&quot; Display the results in a table showing Client Name, Industry, and Projected Impact. 
+Identify all accounts by matching their PAN Number from the holdings data to our client records. If a PAN does not have a matching account, list it as a &apos;New Client&apos; and suggest creating a record for them.For Single Client Queries. The AnalyzeMarketImpact action provides a collection of multiple account records. DO NOT summarize these into a single narrative.Formatting Rule: You must generate a Markdown Table to display the results.Each row in the table MUST correspond to a unique accountName from the tool output.If the tool returns 5 accounts, your table MUST have 5 rows.Columns should be: Client Name, Impacted Stocks, Market Value, and Projected Impact. When a user mentions a specific client or company name, use the &apos;Identify Record by Name&apos; action. Once identified, pass that record into &apos;Summarize_Account_and_Holdings&apos; to provide a detailed analysis of stocks, specific impact rates, and actionable suggestions. When a user mentions a client or company name, first use the &apos;Identify Record by Name&apos; action to find the correct Salesforce Account record. Once identified, pass that Account record into the &apos;Summarize_Account_and_Holdings&apos; to provide a detailed analysis of impacted stocks, the specific impact rates, and actionable suggestions for the client. when such instructions will come &quot;Can you please send this details to customer&quot; then you need to use action- &quot;Market Event Actions&quot; only. Don&apos;t use any standard action for email never</description>
+            <developerName>instructions_0_1777372664493</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1777372664493</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always use Market Event Actions when asked to generate a new email or revise a previously generated email and pass account Id as recordId in this action</description>
+            <developerName>instructions_0_1777726900580</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1777726900580</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Summarize_Account_and_Holdings_179ak000002nlCj</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>IdentifyRecordByName_179ak000002nlCj</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Analyze_Impacted_Accounts_179ak000002nlCj</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>MarketImpactGrounder_179ak000002nlCj</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Market_Event_Actions_179ak000002nlCj</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>MarketImpactGrounder_179ak000002nlCj</fullName>
+            <description>Resolves the prompt template without generating an LLM response. to give impacted Account Names</description>
+            <developerName>MarketImpactGrounder_179ak000002nlCj</developerName>
+            <invocationTarget>MarketImpactGrounder</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>MarketImpactGrounder</localDeveloperName>
+            <masterLabel>MarketImpactGrounder</masterLabel>
+        </localActions>
+        <localActions>
+            <fullName>IdentifyRecordByName_179ak000002nlCj</fullName>
+            <description>Searches for Salesforce CRM records by name and returns a list of matching Salesforce CRM record IDs.</description>
+            <developerName>IdentifyRecordByName_179ak000002nlCj</developerName>
+            <invocationTarget>identifyRecordByName</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>IdentifyRecordByName</localDeveloperName>
+            <masterLabel>Identify Record by Name</masterLabel>
+            <source>EmployeeCopilot__IdentifyRecordByName</source>
+        </localActions>
+        <localActions>
+            <fullName>Market_Event_Actions_179ak000002nlCj</fullName>
+            <description>Agent will pass account details to flow and then we will check for actions and send mail</description>
+            <developerName>Market_Event_Actions_179ak000002nlCj</developerName>
+            <invocationTarget>Market_Event_Actions</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Market_Event_Actions</localDeveloperName>
+            <masterLabel>Market Event Actions</masterLabel>
+        </localActions>
+        <localActions>
+            <fullName>Analyze_Impacted_Accounts_179ak000002nlCj</fullName>
+            <description>Performs advanced financial calculations to identify and link client accounts to market events via PAN Number. Use this for complex sector impact analysis that requires custom calculation logic beyond standard record searching</description>
+            <developerName>Analyze_Impacted_Accounts_179ak000002nlCj</developerName>
+            <invocationTarget>MarketImpactAnalyzer</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Analyze_Impacted_Accounts</localDeveloperName>
+            <masterLabel>Analyze Impacted Accounts</masterLabel>
+        </localActions>
+        <localActions>
+            <fullName>Summarize_Account_and_Holdings_179ak000002nlCj</fullName>
+            <description>Use this action to provide a combined summary of a customer&apos;s Salesforce Account details and their Demat Holdings from Data Cloud. This action should be triggered whenever a user asks for an &apos;account summary,&apos; &apos;holdings details,&apos; or provides a company name or PAN number seeking financial information. It requires the Account  as an input, which should be retrieved by first searching the connected Data Cloud Library if only a name is provided.</description>
+            <developerName>Summarize_Account_and_Holdings_179ak000002nlCj</developerName>
+            <invocationTarget>Summarize_Account_and_Holdings</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Summarize_Account_and_Holdings</localDeveloperName>
+            <masterLabel>Summarize_Account_and_Holdings</masterLabel>
+            <source>Summarize_Account_and_Holdings</source>
+        </localActions>
+        <localDeveloperName>Agent_RM</localDeveloperName>
+        <masterLabel>Agent RM</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>This subagent is authorized to identify Salesforce Account records by name and analyze linked Demat holdings against current market events. It is responsible for providing detailed stock-level impact rates and strategic suggestions. The scope of this topic is to facilitate conversations regarding client financial health. It is authorized to retrieve data from Salesforce Accounts, Financial Accounts, and Holdings. It is responsible for analyzing this data to identify market opportunities, sector concentrations, and personalized investment ideas. It should provide professional, data-backed insights to the team to assist in client advisory meetings</scope>
+        <source>Agent_RM</source>
+    </localTopics>
+    <localTopics>
+        <fullName>GeneralFAQ_16jak000001j3kL</fullName>
+        <canEscalate>false</canEscalate>
+        <description>This topic is for helping answer customer&apos;s questions by searching through the knowledge articles and providing information from those articles. The questions can be about the company and its products, policies or business procedures</description>
+        <developerName>GeneralFAQ_16jak000001j3kL</developerName>
+        <genAiPluginInstructions>
+            <description>If the customer&apos;s question is too vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>requestmoredetails</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>request-more-details</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to help the customer even after asking clarifying questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>unabletohelpafterclarifying</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>unable-to-help-after-clarifying</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to answer customer&apos;s questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>unabletoanswerquestions</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>unable-to-answer-questions</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Never provide generic information, advice or troubleshooting steps, unless retrieved from searching knowledge articles.</description>
+            <developerName>avoidgenericinformation</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>avoid-generic-information</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include sources in your response when available from the knowledge articles, otherwise proceed without them.</description>
+            <developerName>includearticlesources</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>include-article-sources</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179ak000002kIqP</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179ak000002kIqP</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179ak000002kIqP</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <localDeveloperName>GeneralFAQ</localDeveloperName>
+        <masterLabel>General FAQ</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is solely to help with issues and answer questions about the company, its products, procedures, or policies by searching knowledge articles.</scope>
+        <source>SvcCopilotTmpl__GeneralFAQ</source>
+    </localTopics>
+    <localTopics>
+        <fullName>GeneralCRM_16jak000001j3kL</fullName>
+        <aiPluginUtterances>
+            <developerName>shownewleads</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>show-new-leads</masterLabel>
+            <utterance>Show new leads.</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>gettopopportunities</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>get-top-opportunities</masterLabel>
+            <utterance>Get top amount opportunities.</utterance>
+        </aiPluginUtterances>
+        <canEscalate>false</canEscalate>
+        <description>Engages and interacts with the user about any request that could be CRM data related. This could be tasks such as identify and summarize records, answer queries, aggregate data, find and query objects, update records, or drafting and refining emails.</description>
+        <developerName>GeneralCRM_16jak000001j3kL</developerName>
+        <genAiPluginInstructions>
+            <description>There are multiple available data retrieval functions at your disposal. You can use each one of them multiple times if needed. You should use functions as many times as necessary until you have all the data required to fulfill the request of the user. You can perform extra calls if you think you can get additional relevant information.</description>
+            <developerName>activitytimeline0</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>activity-timeline0</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Do not declare your intent i.e. &quot;I will now retrieve the data&quot; - Just fetch the data.</description>
+            <developerName>activitytimeline1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>activity-timeline1</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Identify the object type (i.e., leads, opportunities, accounts) the user asks about. If unclear, confirm with the user and make a suggestion based on the query context and history.</description>
+            <developerName>activitytimeline2</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>activity-timeline2</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When only the name of a record is mentioned in the user request, you MUST call the IdentifyRecordByName action to get the necessary IDs.</description>
+            <developerName>answerquestions</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>answer-questions</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always call QueryRecords &amp; QueryRecordsWithAggregate passing plain natural language english as input. You must Include the record ID in the input if available.</description>
+            <developerName>dataretrieval</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>data-retrieval</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When a user asks for a summary or overview of a record, use GetRecordDetails to get an overview of the data of the record, then use other data retrieval actions as needed.</description>
+            <developerName>draftorreviseemail</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>draft-or-revise-email</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked for a summary on multiple records, you must iterate over all record IDs and for each one call GetRecordDetails.</description>
+            <developerName>getactivitydetails0</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>get-activity-details0</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user asks about activities you must call GetActivitiesTimeline.</description>
+            <developerName>identifyobjecttype</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>identify-object-type</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When providing the Activity Types for GetActivitiesTimeline, choose all the types that are relevant to the user request. Examples - User Request 1 - &quot;What questions does John Doe have that need addressing?&quot;, Activity Types - &quot;Call&quot;, &quot;Email&quot;. User Request 2 - &quot;What are the next activities for John Doe?&quot;, Activity Types - &quot;Task&quot;, &quot;Event&quot;.</description>
+            <developerName>identifyrecord</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>identify-record</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked about recent activities, you should provide the answer, starting from the last 30 days and ending on the current date, unless a specific date range is specified by the user.</description>
+            <developerName>outputstyle</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>output-style</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When you are asked about a single Call, Meeting, Email or any other single specific activity, call GetActivityDetails. Do not call it for any other record type.</description>
+            <developerName>proceedwithaction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>proceed-with-action</masterLabel>
+            <sortOrder>10</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>ExtractRecordFieldsAndValuesFromUserInput must be called prior to UpdateRecordFields.</description>
+            <developerName>queryrecords</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>query-records</masterLabel>
+            <sortOrder>11</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Avoid using structured lists, bullet points, or numbered lists. Instead, present the information in complete sentences and paragraphs as if you were writing an article or a report.</description>
+            <developerName>summary0</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>summary0</masterLabel>
+            <sortOrder>12</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>User questions which can be answered by knowledge articles or documents. These questions usually want information, instructions or guidance, including but not limited to customer questions about company information, polices and frequently asked questions.</description>
+            <developerName>summary1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>summary1</masterLabel>
+            <sortOrder>13</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>QueryRecords_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>QueryRecordsWithAggregate_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetActivitiesTimeline_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>IdentifyObjectByName_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>UpdateRecordFields_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetRecordDetails_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ExtractFieldsAndValuesFromUserInput_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetActivityDetails_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>IdentifyRecordByName_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Market_Event_Actions_179ak000002kIqQ</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>IdentifyRecordByName_179ak000002kIqQ</fullName>
+            <description>Searches for Salesforce CRM records by name and returns a list of matching Salesforce CRM record IDs.</description>
+            <developerName>IdentifyRecordByName_179ak000002kIqQ</developerName>
+            <invocationTarget>identifyRecordByName</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>IdentifyRecordByName</localDeveloperName>
+            <masterLabel>Identify Record by Name</masterLabel>
+            <source>EmployeeCopilot__IdentifyRecordByName</source>
+        </localActions>
+        <localActions>
+            <fullName>GetActivityDetails_179ak000002kIqQ</fullName>
+            <description>Provides data about an activity record, including its content and other key details. The record type is strictly limited to a Call, Email, Event, or Task.</description>
+            <developerName>GetActivityDetails_179ak000002kIqQ</developerName>
+            <invocationTarget>getActivityDetails</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetActivityDetails</localDeveloperName>
+            <masterLabel>Get Activity Details</masterLabel>
+            <progressIndicatorMessage>Getting activity details</progressIndicatorMessage>
+            <source>EmployeeCopilot__GetActivityDetails</source>
+        </localActions>
+        <localActions>
+            <fullName>ExtractFieldsAndValuesFromUserInput_179ak000002kIqQ</fullName>
+            <description>Extracts Salesforce CRM record fields and their corresponding field values from the user input. This action must run before updateRecord to convert user input to a Salesforce sObject.</description>
+            <developerName>ExtractFieldsAndValuesFromUserInput_179ak000002kIqQ</developerName>
+            <invocationTarget>getRecordFieldsAndValues</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ExtractFieldsAndValuesFromUserInput</localDeveloperName>
+            <masterLabel>Extract Fields And Values From User Input</masterLabel>
+            <progressIndicatorMessage>Preparing your changes</progressIndicatorMessage>
+            <source>EmployeeCopilot__ExtractFieldsAndValuesFromUserInput</source>
+        </localActions>
+        <localActions>
+            <fullName>GetRecordDetails_179ak000002kIqQ</fullName>
+            <description>Generates a text blob containing record details, including object fields and values and records from related lists.</description>
+            <developerName>GetRecordDetails_179ak000002kIqQ</developerName>
+            <invocationTarget>getDataForGrounding</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetRecordDetails</localDeveloperName>
+            <masterLabel>Get Record Details</masterLabel>
+            <progressIndicatorMessage>Getting details</progressIndicatorMessage>
+            <source>EmployeeCopilot__GetRecordDetails</source>
+        </localActions>
+        <localActions>
+            <fullName>UpdateRecordFields_179ak000002kIqQ</fullName>
+            <description>Updates fields on a Salesforce CRM record. The action ExtractFieldsAndValuesFromUserInput must be called prior to this action to extract the record&apos;s fields and values.</description>
+            <developerName>UpdateRecordFields_179ak000002kIqQ</developerName>
+            <invocationTarget>einsteinCopilotUpdateRecord</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>UpdateRecordFields</localDeveloperName>
+            <masterLabel>Update Record</masterLabel>
+            <progressIndicatorMessage>Making updates</progressIndicatorMessage>
+            <source>EmployeeCopilot__UpdateRecordFields</source>
+        </localActions>
+        <localActions>
+            <fullName>IdentifyObjectByName_179ak000002kIqQ</fullName>
+            <description>Finds the Salesforce object API name by extracting an object name from the user input.</description>
+            <developerName>IdentifyObjectByName_179ak000002kIqQ</developerName>
+            <invocationTarget>identifyObject</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>IdentifyObjectByName</localDeveloperName>
+            <masterLabel>Identify Object by Name</masterLabel>
+            <source>EmployeeCopilot__IdentifyObjectByName</source>
+        </localActions>
+        <localActions>
+            <fullName>GetActivitiesTimeline_179ak000002kIqQ</fullName>
+            <description>Retrieve a timeline of all CRM activities associated with one record, including past and future activities.</description>
+            <developerName>GetActivitiesTimeline_179ak000002kIqQ</developerName>
+            <invocationTarget>getActivitiesTimeline</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetActivitiesTimeline</localDeveloperName>
+            <masterLabel>Get Activities Timeline</masterLabel>
+            <progressIndicatorMessage>Retrieving activities</progressIndicatorMessage>
+            <source>EmployeeCopilot__GetActivitiesTimeline</source>
+        </localActions>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179ak000002kIqQ</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179ak000002kIqQ</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <localActions>
+            <fullName>Market_Event_Actions_179ak000002kIqQ</fullName>
+            <description>Agent to send email</description>
+            <developerName>Market_Event_Actions_179ak000002kIqQ</developerName>
+            <invocationTarget>Market_Event_Actions</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Market_Event_Actions</localDeveloperName>
+            <masterLabel>Market Event Actions</masterLabel>
+        </localActions>
+        <localActions>
+            <fullName>QueryRecordsWithAggregate_179ak000002kIqQ</fullName>
+            <description>Answers aggregation questions (such as count, sum, max, min, or average) about Salesforce CRM data based on the user input and specific conditions, such as field values. For example &apos;Find the number of open opportunities created in the last 5 days.&apos;</description>
+            <developerName>QueryRecordsWithAggregate_179ak000002kIqQ</developerName>
+            <invocationTarget>queryRecordsWithAggregate</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>QueryRecordsWithAggregate</localDeveloperName>
+            <masterLabel>Query Records with Aggregate</masterLabel>
+            <source>EmployeeCopilot__QueryRecordsWithAggregate</source>
+        </localActions>
+        <localActions>
+            <fullName>QueryRecords_179ak000002kIqQ</fullName>
+            <description>Finds and retrieves Salesforce CRM records based on user input and specific conditions, such as field values. This action automatically identifies the correct records and object type. e.g. &apos;Find all open opportunities created in the last 5 days sorted by created date.&apos;</description>
+            <developerName>QueryRecords_179ak000002kIqQ</developerName>
+            <invocationTarget>queryRecords</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>QueryRecords</localDeveloperName>
+            <masterLabel>Query Records</masterLabel>
+            <source>EmployeeCopilot__QueryRecords</source>
+        </localActions>
+        <localDeveloperName>GeneralCRM</localDeveloperName>
+        <masterLabel>General CRM</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to interact and answer questions for the user about anything Salesforce or CRM data related, combining all data retrieval functions. i.e: QueryRecords(), GetRecordDetails(), GetActivitiesTimeline(), GetActivityDetails()</scope>
+        <source>EmployeeCopilot__GeneralCRM</source>
+    </localTopics>
+    <localTopics>
+        <fullName>Slack_16jak000001j3kL</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Allows agents to take actions on behalf of people working in Slack, at their request.
+Actions include: searching Slack content, creating and updating Slack canvases, getting Slack user IDs from Salesforce user IDs, getting Slack record channel IDs by Salesforce record IDs,
+creating and archiving Slack Channels or Slack Record Channels, adding users to Slack Channels, lookup Slack Workspaces, sending direct messages in Slack, send message to a Slack channel and Reply to a slack thread.</description>
+        <developerName>Slack_16jak000001j3kL</developerName>
+        <genAiPluginInstructions>
+            <description>When an action results in an error, summarize the error message with a user friendly reason so that the user can take appropriate action. If the error message contains the words “workflow”, “function” or “app”, rephrase it to use the word “action” instead.</description>
+            <developerName>error_handling</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>error_handling</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to create a canvas, use the “Create a Slack Canvas” action.</description>
+            <developerName>create_canvas_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>create_canvas_instruction</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to update a canvas, use the “Update a Slack Canvas” action.</description>
+            <developerName>update_canvas_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>update_canvas_instruction</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to search for information in Slack, use the &quot;Search Slack&quot; action.</description>
+            <developerName>search_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>search_instruction</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked for information from third party applications/systems, use the &quot;Search Slack&quot; action.
+Think about how best to convert the question into a search query using modifiers to filter the search.
+Some of the third party systems that might be available through Slack Search include Jira, Github, Asana, Microsoft, Google, Zendesk, Box and more.</description>
+            <developerName>enterprise_search_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>enterprise_search_instruction</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Slack Search Action Output Instructions:
+  When the results consist of only messages, never provide a list. Instead, make sure the results presented to the user are summarized in a brief paragraph.
+  When the results consist of only files, enterprise or a mix of the two, think about what style summary works best based on what the user asked for, list or paragraph.
+  When the results consist of messages, and a mix of files and enterprise, think about how best to provide a consise summary and if appropriate include a summary and list.
+
+  Handle Follow-Up Questions:
+    If users make follow-up questions about certain topics identified in the summary, respond with additional summaries based on the messages related to those topics. Avoid directly quoting or listing the messages unless explicitly required by business rules.
+    Example: Follow-Up: &apos;What do the messages say about task assignments?&apos;; Response: &apos;The messages outline the division of tasks among team members and deadlines for completion.&apos;
+
+    List Channels:
+    If the user asks for channels, list the channels in the following format:
+    * &apos;1. &lt;#channelId&gt;&apos;
+    * &apos;2. &lt;#channelId&gt;&apos;
+    * &apos;3. &lt;#channelId&gt;&apos;
+
+    Do not provide any additional content, summaries, or links.
+    Example:
+
+    * User Prompt: &apos;What channels are mentioned?&apos;
+    * Response:
+        * &apos;1. &lt;#C123123123&gt;&apos;
+        * &apos;2. &lt;#C123123133&gt;&apos;
+        * &apos;3. &lt;#C123123173&gt;&apos;
+
+  List Users:
+      * If the user asks for users, list the usernames in the following format:
+          * &apos;1. @username&apos;
+          * &apos;2. @username&apos;
+          * &apos;3. @username&apos;
+
+Do not provide any additional content or summaries.
+Example:
+
+    * User Prompt: &apos;Who are the users mentioned?&apos;
+    * Response:
+        * &apos;1. @john&apos;
+        * &apos;2. @alice&apos;
+        * &apos;3. @bob&apos;</description>
+            <developerName>search_outputs_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>search_outputs_instruction</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When Slack sends a message to a channel or DM, it returns a message timestamp in the format &lt;0123456789.012345&gt;. Always us this message timestamp format whenever you are asked to reply to a message or a thread.</description>
+            <developerName>message_timestamp_instructions</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>message_timestamp_instructions</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to archive a Slack channel, use the &quot;Archive a Slack Channel&quot; action to archive the provided Slack Channel. If the Slack Channel ID is not provided or implied, ask for it.</description>
+            <developerName>archive_slack_channel_instructions</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>archive_slack_channel_instructions</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to find or lookup a Slack channel based on a salesforce record, use the &quot;Look Up a Slack Record Channel&quot; action to find the corresponding Slack channel. If the Salesforce record ID is not provided or implied, ask for it.</description>
+            <developerName>lookup_record_channel_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>lookup_record_channel_instruction</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to create a Slack channel, there are two options 1. &quot;Create a Slack Channel&quot; and 2. &quot;Create a Slack Record Channel&quot;. If the request provides a Salesforce Record ID, references a Salesforce record or specifies &quot;Record Channel&quot;, use the &quot;Create a Slack Record Channel&quot;, otherwise use the &quot;Create a Slack Channel&quot; action to create the corresponding Slack channel. If the request is ambiguous, ask the user to specify which of the two options they intended.</description>
+            <developerName>create_channel_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>create_channel_instruction</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When using the &quot;Create a Slack Record Channel&quot; action to create a Slack channel, if the Salesforce record ID is not provided or implied, ask for it.</description>
+            <developerName>create_record_channel_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>create_record_channel_instruction</masterLabel>
+            <sortOrder>10</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When using the &quot;Create a Slack Channel&quot; action to create a Slack channel, if the Slack Channel name is not provided or implied, ask for it. A Slack Team ID (or Workspace ID) has the following regular expression - &quot;^T[A-Z0-9]{2,}&quot;. If a Team ID (or Workspace ID) isn&apos;t provided or it doesn&apos;t match the regular expression, use the &quot;Lookup Slack Workspaces&quot; action for a list of possible workspaces. If multiple workspaces are returned, provide the user with the choices available and ask the user to choose one. Instead, if there is only one workspace available, use that. Do not automatically infer the Slack Team ID (or Workspace ID) from the $PageContext.slack_team context variable if its value begins with an &quot;E&quot;. If the user doesn&apos;t specify whether the channel should be public or private, default to public.</description>
+            <developerName>create_slack_channel_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>create_slack_channel_instruction</masterLabel>
+            <sortOrder>11</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When another action requires a WorkspaceID and none have been provided, use the &quot;Lookup Slack Workspaces&quot; action to retrieve a list of Workspaces to present to the user.</description>
+            <developerName>lookup_workspace_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>lookup_workspace_instruction</masterLabel>
+            <sortOrder>12</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to add users to a Slack channel, use the &quot;Add Users to a Slack Channel&quot; action to add users to the corresponding Slack channel. If the Slack Channel ID is not provided or implied, ask for it.</description>
+            <developerName>add_users_to_slack_channel_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>add_users_to_slack_channel_instruction</masterLabel>
+            <sortOrder>13</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to share a canvas with Slack Users and/or Slack Channels, use the &quot;Share a Slack Canvas&quot; action to share accordingly. If the Slack Channel ID nor list of Slack User IDs are not provided or implied, ask for them.</description>
+            <developerName>share_slack_canvas_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>share_slack_canvas_instruction</masterLabel>
+            <sortOrder>14</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>An agent can send messages in three ways. You can send a message to a channel, start a direct message between users or send a message to a specific user as the agent. When the user wants to notify or communicate with a large audience such as an entire channel, use the &quot;Send Message to a Slack Channel&quot; action. When the user is looking to start a direct message (DM) with another Slack user or is looking to be introduced to another Slack User with the agent present in the conversation, use the &quot;Send a Slack Direct Message&quot; action. When the user wants to send a message to a Slack User, or wants to notify or inform a specific Slack User of some activity, use the &quot;Start a Slack conversation with an Agent&quot; action to send the user a message as an agent. If you are not sure of the user&apos;s intention or if the user&apos;s intention is ambiguous, present the user with these three messaging options along with a description of what they do and ask the user for their choice.</description>
+            <developerName>messages_disambiguation</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>messages_disambiguation</masterLabel>
+            <sortOrder>15</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to start a direct message (DM) with a Slack User or to get introduced to a Slack User, use the “Send a Direct Slack Message” action. Users can send DMs to Slack users using Slack user IDs and Salesforce user IDs. If given a Salesforce user ID, use the &quot;Look Up a Slack User&quot; action to find the corresponding Slack user ID.</description>
+            <developerName>send_dm_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>send_dm_instruction</masterLabel>
+            <sortOrder>16</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to send a message to a Slack channel, use the &quot;Send Message to a Slack Channel&quot; action to send the message. If the Slack Channel ID is not provided or implied, ask for it.</description>
+            <developerName>send_message_to_channel_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>send_message_to_channel_instruction</masterLabel>
+            <sortOrder>17</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to inform, send a message or to notify a Slack User, use the &quot;Start a Slack conversation with an Agent&quot; action. If the Slack User ID and message are not provided or implied, ask for them. If given a Salesforce User ID, use the &quot;Look Up a Slack User&quot; action to find the corresponding Slack User ID.</description>
+            <developerName>send_message_as_agent_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>send_message_as_agent_instruction</masterLabel>
+            <sortOrder>18</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to to Summarize a Slack Channel, use the &quot;Summarize a Slack Channel&quot; action.</description>
+            <developerName>summarize_slack_channel_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>summarize_slack_channel_instruction</masterLabel>
+            <sortOrder>19</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>A &quot;Canvas&quot; or &quot;Slack Canvas&quot; is a file in Slack that contains plaintext or markdown. When a user references a &quot;canvas&quot;, it should be considered in this context.</description>
+            <developerName>canvas_definition</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>canvas_definition</masterLabel>
+            <sortOrder>20</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to reply to a Slack message or a thread, use the &quot;ReplyInThread&quot; action. If the Slack Channel ID is not provided or implied, ask for it. For message timestamp input, use the format &lt;0123456789.012345&gt;. If no message timestamp is provided or it is ambiguous in the session context, confirm which message the user intends to reply.</description>
+            <developerName>reply_in_thread_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>reply_in_thread_instruction</masterLabel>
+            <sortOrder>21</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>GetSlackUser_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ArchiveSlackChannel_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>CreateSlackChannel_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SendSlackDirectMessage_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AddUsersToSlackChannel_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SendMessageAsAgent_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SummarizeSlackChannel_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SearchSlack_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>LookupSlackRecordChannel_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>CreateSlackRecordChannel_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ListSlackWorkspaces_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ShareSlackCanvas_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>UpdateSlackCanvas_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>CreateSlackCanvas_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SendMessageToSlackChannel_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ReplyInThread_179ak000002kIqR</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>LookupSlackRecordChannel_179ak000002kIqR</fullName>
+            <description>Given a Salesforce record ID, looks up the corresponding record channel in Slack.
+Upon successful completion, provide the channel at-mention and url to the user along with a friendly message.</description>
+            <developerName>LookupSlackRecordChannel_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__LookupSlackRecordChannel</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>LookupSlackRecordChannel</localDeveloperName>
+            <masterLabel>Look Up a Salesforce Channel in Slack</masterLabel>
+            <progressIndicatorMessage>Looking up a Salesforce Channel in Slack...</progressIndicatorMessage>
+            <source>Slack__LookupSlackRecordChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>SearchSlack_179ak000002kIqR</fullName>
+            <description>Performs search on Slack
+Search query input accepts the following forms:
+ - keywords (e.g. &apos;notes&apos;)
+ - phrases (e.g. &apos;meeting notes&apos;)
+ - questions (e.g. &apos;Where are the meeting notes for the sync meeting yesterday?&apos;)
+When appropriate, (e.g. The user asked a specific question), use the &apos;question&apos; option for the query input by passing the original raw question from the user.
+Returns three types of objects:
+ * &quot;messages&quot;: Slack messages found in Slack channels and are accessible to the acting user
+ * &quot;files&quot;: Files found in Slack of all types that are accessible to the acting user
+ * &quot;enterprise&quot;: Search result objects from various third party systems that are connected and authenticated by the acting user. Each enterprise object returned will include a &apos;lookup_function&apos; object which will provide details of what third party system and instance the data was retrieved from with some contextual information about the data. Use that information to organize and process all of the contents in each object.
+ All three object types should be used to provide the user with a comprehensive summary by evaluating and considering the context of each object to best answer the user&apos;s query.
+
+Clarifications and Refinements: If the query is vague, ask clarifying questions. If search results are insufficient or outdated, suggest next steps.
+Do not use any data or information outside of Slack&apos;s knowledge base. The agent should only retrieve and provide information that is available within the Slack workspace and should not pull from external sources
+
+Formatting Search Results:
+ * A string like &lt;@U123456789&gt; or &lt;@W123456789&gt; represents a User mention in Slack. You can extract a Slack User ID from a mention by removing the &lt;@ and &gt; characters. For example, the User ID in &lt;@U123456789&gt; is U123456789.
+ * A string like &lt;#C123456789&gt; or &lt;#D123456789&gt; represents a Channel mention in Slack. You can extract a Slack Channel ID from a mention by removing the &lt;# and &gt; characters. For example, the Channel ID in &lt;#C123456789&gt; is C123456789.
+ * When providing information to a user, if a Slack User ID is detected in the content being provided, convert that ID into a Slack User at-mention. For example if there is a reference to a user in a string like &apos;U123456789&apos; or &apos;W123456789&apos;, wrap that string into a string surrounded with  &apos;&lt;@&apos; and  &apos;&gt;&apos;, for instance: &lt;@U123456789&gt;.
+ * When providing information to a user, if a Slack Channel ID is detected in the content being provided, convert that ID into a Slack Channel mention. For example if there is a reference to a channel in a string like &apos;C123456789&apos; or &apos;D123456789&apos;, wrap that string into a string surrounded with  &apos;&lt;#&apos; and  &apos;&gt;&apos;, for instance: &lt;#C123456789&gt;.
+
+Processing Search Results:
+ * Retrieve and analyze search results.
+ * Summarize relevant responses clearly and concisely.
+ * If multiple relevant messages exist, synthesize the information into a coherent answer.
+ * If no useful results are found, acknowledge the lack of results and suggest rephrasing the query or asking in relevant Slack channels.
+ * Do not list the individual messages or their content. Instead, identify recurring themes, keywords, or subjects.
+ Example:
+   * User Prompt: &apos;Find messages about project deadlines.&apos;;
+   * Response: &apos;The messages discuss topics such as project timelines, task assignments, and upcoming deliverables.&apos;
+
+General Questions: For general questions, provide summaries as usual. Process the messages.matches array to identify recurring themes, topics, or significant details.
+
+Error or No Data Scenarios:
+ * If the search query returns no matching messages, respond appropriately: &apos;No messages were found matching your search criteria. Please refine your query and try again.&apos;</description>
+            <developerName>SearchSlack_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SearchSlack</localDeveloperName>
+            <masterLabel>Search Slack</masterLabel>
+            <progressIndicatorMessage>Searching Slack...</progressIndicatorMessage>
+            <source>Slack__SearchSlack</source>
+        </localActions>
+        <localActions>
+            <fullName>SummarizeSlackChannel_179ak000002kIqR</fullName>
+            <description>Uses the Slack Search API to find relevant messages, files, and sources in a channel during a specified timeframe. Then, uses the search results in a prompt template to summarize results in a readable format.</description>
+            <developerName>SummarizeSlackChannel_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentSummarizeChannel</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SummarizeSlackChannel</localDeveloperName>
+            <masterLabel>Summarize a Slack Channel</masterLabel>
+            <progressIndicatorMessage>Summarizing a Slack channel...</progressIndicatorMessage>
+            <source>Slack__SummarizeSlackChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>SendMessageAsAgent_179ak000002kIqR</fullName>
+            <description>Use to send notifications or messages to specific Slack users in a direct message from the agent.
+Messages may be sent in plain text or formatted using Markdown.
+This action is intended to send notifications, inform or message specific Slack Users.
+This action cannot be used to send messages to channels.
+Upon successful completion, provide the user a friendly confirmation with a link to the message (in markdown).</description>
+            <developerName>SendMessageAsAgent_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__SendMessageAsAgent</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SendMessageAsAgent</localDeveloperName>
+            <masterLabel>Start a Slack conversation with an Agent</masterLabel>
+            <progressIndicatorMessage>Starting a Slack conversation with an Agent...</progressIndicatorMessage>
+            <source>Slack__SendMessageAsAgent</source>
+        </localActions>
+        <localActions>
+            <fullName>AddUsersToSlackChannel_179ak000002kIqR</fullName>
+            <description>Add Slack Users to a Slack Channel.
+If a list of Slack Users to add to the channel is not provided, ask the user for the list of Slack users to add to the Slack channel.
+If a Slack channel ID is not provided, ask the user for it.
+Slack User IDs can be provided as a comma separated string.
+Upon successful completion, provide the list of Slack User at-mentions and the Channel at-mention to the user along with a friendly message.</description>
+            <developerName>AddUsersToSlackChannel_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__AddUsersToSlackChannel</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AddUsersToSlackChannel</localDeveloperName>
+            <masterLabel>Add Users or Agents to a Slack Channel</masterLabel>
+            <progressIndicatorMessage>Adding users to a Slack channel...</progressIndicatorMessage>
+            <source>Slack__AddUsersToSlackChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>SendSlackDirectMessage_179ak000002kIqR</fullName>
+            <description>Given plain text or markdown text, send a direct message (DM) in Slack with the recipient and sender users in the DM channel.
+You can add sections, include links, references, and any other information you deem relevant.
+Provide the message url to the user along with a friendly message.
+Upon successful completion, provide the user a friendly confirmation with a link to the message (in markdown).</description>
+            <developerName>SendSlackDirectMessage_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentSendDirectMessage</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SendSlackDirectMessage</localDeveloperName>
+            <masterLabel>Send a Slack Direct Message</masterLabel>
+            <progressIndicatorMessage>Sending Slack direct message...</progressIndicatorMessage>
+            <source>Slack__SendSlackDirectMessage</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateSlackChannel_179ak000002kIqR</fullName>
+            <description>Create a Slack Channel.
+Ask the end user for a Channel name, the Team ID (or Workspace ID) to create the Slack Channel in and whether the Channel is public or private, unless these details are already provided.
+Upon successful completion, provide the channel at-mention and url to the user along with a friendly message.</description>
+            <developerName>CreateSlackChannel_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__CreateChannel</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateSlackChannel</localDeveloperName>
+            <masterLabel>Create a Slack Channel</masterLabel>
+            <progressIndicatorMessage>Creating a Slack channel...</progressIndicatorMessage>
+            <source>Slack__CreateSlackChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>ArchiveSlackChannel_179ak000002kIqR</fullName>
+            <description>Archives a Slack Channel, given a Slack Channel ID. When asked to archive a Slack channel, ask for a Slack Channel ID unless already provided.
+Upon successful completion, provide the user a friendly confirmation with the channel at-mention and url.</description>
+            <developerName>ArchiveSlackChannel_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__ArchiveSlackChannel</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ArchiveSlackChannel</localDeveloperName>
+            <masterLabel>Archive a Slack Channel</masterLabel>
+            <progressIndicatorMessage>Archiving a Slack channel...</progressIndicatorMessage>
+            <source>Slack__ArchiveSlackChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>GetSlackUser_179ak000002kIqR</fullName>
+            <description>Given a Salesforce user ID, looks up the corresponding Slack user ID.</description>
+            <developerName>GetSlackUser_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentGetUser</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetSlackUser</localDeveloperName>
+            <masterLabel>Look Up a Slack User</masterLabel>
+            <progressIndicatorMessage>Looking Up a Slack user...</progressIndicatorMessage>
+            <source>Slack__GetSlackUser</source>
+        </localActions>
+        <localActions>
+            <fullName>ShareSlackCanvas_179ak000002kIqR</fullName>
+            <description>Shares a Slack Canvas with a set of users and/or channels.
+If neither a list of Slack Users nor Slack Channels to to add to the channel is provided, ask the user for a list of Slack Users and/or Slack Channels to share the Canvas with.
+If the user does not provide an access level for the shared Canvas, ask the user for it.
+Upon successful completion, provide the user a friendly confirmation with a link to the canvas (in markdown) and at-mentions for the channels and/or Users the Canvas was shared with.</description>
+            <developerName>ShareSlackCanvas_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__ShareSlackCanvas</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ShareSlackCanvas</localDeveloperName>
+            <masterLabel>Share a Slack Canvas</masterLabel>
+            <progressIndicatorMessage>Sharing a Slack canvas...</progressIndicatorMessage>
+            <source>Slack__ShareSlackCanvas</source>
+        </localActions>
+        <localActions>
+            <fullName>ListSlackWorkspaces_179ak000002kIqR</fullName>
+            <description>List Workspaces in Slack.</description>
+            <developerName>ListSlackWorkspaces_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__ListWorkspaces</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ListSlackWorkspaces</localDeveloperName>
+            <masterLabel>List Slack Workspaces</masterLabel>
+            <progressIndicatorMessage>Listing Slack workspaces...</progressIndicatorMessage>
+            <source>Slack__ListSlackWorkspaces</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateSlackRecordChannel_179ak000002kIqR</fullName>
+            <description>Given a Salesforce record ID, creates a corresponding record channel in Slack. Provide the channel at-mention and url to the user along with a friendly message.</description>
+            <developerName>CreateSlackRecordChannel_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__CreateSlackRecordChannel</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateSlackRecordChannel</localDeveloperName>
+            <masterLabel>Create a Salesforce Channel in Slack</masterLabel>
+            <progressIndicatorMessage>Creating a Slack channel...</progressIndicatorMessage>
+            <source>Slack__CreateSlackRecordChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>ReplyInThread_179ak000002kIqR</fullName>
+            <description>Replies with a message in thread in a Slack channel or direct message. Messages may be in plain text or Markdown format. If no message timestamp is provided or it is ambiguous in the session context, confirm which message the user intends to reply. Upon successful completion, provide the user a friendly confirmation with a link to the message, formatted using Markdown.</description>
+            <developerName>ReplyInThread_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__ReplyInThread</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ReplyInThread</localDeveloperName>
+            <masterLabel>Reply to a Slack thread</masterLabel>
+            <progressIndicatorMessage>Replying to a thread...</progressIndicatorMessage>
+            <source>Slack__ReplyInThread</source>
+        </localActions>
+        <localActions>
+            <fullName>SendMessageToSlackChannel_179ak000002kIqR</fullName>
+            <description>Sends a message to a public or private Slack Channel.
+Messages may be in plaintext or Markdown format.
+This action is intended for group communication, announcements, or notifications within channels.
+This action should not be used to send direct messages to individuals.
+Upon successful completion, provide the user a friendly confirmation with a link to the message (in markdown).</description>
+            <developerName>SendMessageToSlackChannel_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentDynamic__SendMessageToSlackChannel</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SendMessageToSlackChannel</localDeveloperName>
+            <masterLabel>Send Message to a Slack Channel</masterLabel>
+            <progressIndicatorMessage>Sending message...</progressIndicatorMessage>
+            <source>Slack__SendMessageToSlackChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateSlackCanvas_179ak000002kIqR</fullName>
+            <description>Create a Slack canvas document with the provided markdown content.
+You can add sections, include links, references, and any other information you deem relevant.
+When asked to create a canvas with prior content, ask the user whether there is a desired outline with sections, formatting, and sequencing preferred before creating the canvas.
+Upon successful completion, provide the user a friendly confirmation including the canvas link in markdown.</description>
+            <developerName>CreateSlackCanvas_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentCreateCanvas</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateSlackCanvas</localDeveloperName>
+            <masterLabel>Create a Slack Canvas</masterLabel>
+            <progressIndicatorMessage>Creating Slack canvas...</progressIndicatorMessage>
+            <source>Slack__CreateSlackCanvas</source>
+        </localActions>
+        <localActions>
+            <fullName>UpdateSlackCanvas_179ak000002kIqR</fullName>
+            <description>Append markdown content to a Slack canvas document.
+Always append new content and never duplicate content that was added in earlier prompts.
+If no canvas ID is provided or it is ambiguous in the session context, confirm which canvas ID the user intends to update.
+Upon successful completion, provide the user a friendly confirmation with a link to the canvas (in markdown).</description>
+            <developerName>UpdateSlackCanvas_179ak000002kIqR</developerName>
+            <invocationTarget>slackAgentUpdateCanvas</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>UpdateSlackCanvas</localDeveloperName>
+            <masterLabel>Update a Slack Canvas</masterLabel>
+            <progressIndicatorMessage>Updating Slack canvas...</progressIndicatorMessage>
+            <source>Slack__UpdateSlackCanvas</source>
+        </localActions>
+        <localDeveloperName>Slack</localDeveloperName>
+        <masterLabel>General Slack</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to help people perform Slack tasks, searching Slack content, creating and updating Slack canvases, getting Slack user IDs from Salesforce user IDs, getting Slack record channel IDs by Salesforce record IDs, creating and archiving Slack Channels or Slack Record Channels, adding users to Slack Channels, lookup Slack Workspaces, sending direct messages in Slack and Reply to a slack thread.</scope>
+        <source>Slack__Slack</source>
+    </localTopics>
+    <localTopics>
+        <fullName>SlackExecutiveBrief_16jak000001j3kL</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Allows agents to use a Salesforce prompt template to create executive brief canvases in Slack.</description>
+        <developerName>SlackExecutiveBrief_16jak000001j3kL</developerName>
+        <genAiPluginInstructions>
+            <description>When an action results in an error, summarize the error message with a user friendly reason so that the user can take appropriate action.</description>
+            <developerName>error_handling</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>error_handling</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to create a canvas, use the &quot;Create a Slack Canvas&quot; action.</description>
+            <developerName>create_canvas_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>create_canvas_instruction</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to update a canvas, use the &quot;Update a Slack Canvas&quot; action.</description>
+            <developerName>update_canvas_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>update_canvas_instruction</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to share a canvas with Slack Users and/or Slack Channels, use the &quot;Share a Slack Canvas&quot; action to share accordingly. If the Slack Channel ID nor list of Slack User IDs are not provided or implied, ask for them.</description>
+            <developerName>share_slack_canvas_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>share_slack_canvas_instruction</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Use the &quot;Identify Record By Name&quot; action to identify a record by name. When a record name is not provided, ask the user for it.</description>
+            <developerName>identify_record_by_name_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>identify_record_by_name_instruction</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Use the &quot;Get Record Details&quot; action to get record details for a record. When a record ID is not provided, ask the user for it. Alternatively, if a record name is provided, the record ID can be obtained by using the output of the &quot;Identify Record By Name&quot; action.</description>
+            <developerName>get_record_details_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>get_record_details_instruction</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked to create an executive brief for an account, use the &quot;Create an Account Executive Brief&quot; action to get a summary of the executive brief. Pass this information in to the &quot;Create Slack Canvas&quot; to create a Slack Canvas with the account&apos;s executive brief. Ensure that the Slack Canvas is created accurately based on the prompt template. Share the link to the Slack Canvas with the user.</description>
+            <developerName>create_executive_brief</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>create_executive_brief</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If a user requests to search an account, use Identify record by name to search for the account</description>
+            <developerName>search_account_by_name</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>search_account_by_name</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the account cannot be found, ask the user for more details</description>
+            <developerName>no_account_found</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>no_account_found</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>CreateSlackCanvas_179ak000002kIqS</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetRecordDetails_179ak000002kIqS</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>UpdateSlackCanvas_179ak000002kIqS</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ShareSlackCanvas_179ak000002kIqS</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ExecutiveBrief_179ak000002kIqS</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>IdentifyRecordByName_179ak000002kIqS</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>IdentifyRecordByName_179ak000002kIqS</fullName>
+            <description>Searches for Salesforce CRM records by name and returns a list of matching Salesforce CRM record IDs.</description>
+            <developerName>IdentifyRecordByName_179ak000002kIqS</developerName>
+            <invocationTarget>identifyRecordByName</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>IdentifyRecordByName</localDeveloperName>
+            <masterLabel>Identify Record by Name</masterLabel>
+            <source>EmployeeCopilot__IdentifyRecordByName</source>
+        </localActions>
+        <localActions>
+            <fullName>ExecutiveBrief_179ak000002kIqS</fullName>
+            <description>Given an Account record, generate an executive brief of that account grounded with details present in the account object using a prompt template</description>
+            <developerName>ExecutiveBrief_179ak000002kIqS</developerName>
+            <invocationTarget>Slack__ExecutiveBriefPromptTemplate</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ExecutiveBrief</localDeveloperName>
+            <masterLabel>Create an Account Executive Brief</masterLabel>
+            <progressIndicatorMessage>Creating the executive brief...</progressIndicatorMessage>
+            <source>Slack__ExecutiveBrief</source>
+        </localActions>
+        <localActions>
+            <fullName>ShareSlackCanvas_179ak000002kIqS</fullName>
+            <description>Shares a Slack Canvas with a set of users and/or channels.
+If neither a list of Slack Users nor Slack Channels to to add to the channel is provided, ask the user for a list of Slack Users and/or Slack Channels to share the Canvas with.
+If the user does not provide an access level for the shared Canvas, ask the user for it.
+Upon successful completion, provide the user a friendly confirmation with a link to the canvas (in markdown) and at-mentions for the channels and/or Users the Canvas was shared with.</description>
+            <developerName>ShareSlackCanvas_179ak000002kIqS</developerName>
+            <invocationTarget>slackAgentDynamic__ShareSlackCanvas</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ShareSlackCanvas</localDeveloperName>
+            <masterLabel>Share a Slack Canvas</masterLabel>
+            <progressIndicatorMessage>Sharing a Slack canvas...</progressIndicatorMessage>
+            <source>Slack__ShareSlackCanvas</source>
+        </localActions>
+        <localActions>
+            <fullName>UpdateSlackCanvas_179ak000002kIqS</fullName>
+            <description>Append markdown content to a Slack canvas document.
+Always append new content and never duplicate content that was added in earlier prompts.
+If no canvas ID is provided or it is ambiguous in the session context, confirm which canvas ID the user intends to update.
+Upon successful completion, provide the user a friendly confirmation with a link to the canvas (in markdown).</description>
+            <developerName>UpdateSlackCanvas_179ak000002kIqS</developerName>
+            <invocationTarget>slackAgentUpdateCanvas</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>UpdateSlackCanvas</localDeveloperName>
+            <masterLabel>Update a Slack Canvas</masterLabel>
+            <progressIndicatorMessage>Updating Slack canvas...</progressIndicatorMessage>
+            <source>Slack__UpdateSlackCanvas</source>
+        </localActions>
+        <localActions>
+            <fullName>GetRecordDetails_179ak000002kIqS</fullName>
+            <description>Generates a text blob containing record details, including object fields and values and records from related lists.</description>
+            <developerName>GetRecordDetails_179ak000002kIqS</developerName>
+            <invocationTarget>getDataForGrounding</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetRecordDetails</localDeveloperName>
+            <masterLabel>Get Record Details</masterLabel>
+            <progressIndicatorMessage>Getting details</progressIndicatorMessage>
+            <source>EmployeeCopilot__GetRecordDetails</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateSlackCanvas_179ak000002kIqS</fullName>
+            <description>Create a Slack canvas document with the provided markdown content.
+You can add sections, include links, references, and any other information you deem relevant.
+When asked to create a canvas with prior content, ask the user whether there is a desired outline with sections, formatting, and sequencing preferred before creating the canvas.
+Upon successful completion, provide the user a friendly confirmation including the canvas link in markdown.</description>
+            <developerName>CreateSlackCanvas_179ak000002kIqS</developerName>
+            <invocationTarget>slackAgentCreateCanvas</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateSlackCanvas</localDeveloperName>
+            <masterLabel>Create a Slack Canvas</masterLabel>
+            <progressIndicatorMessage>Creating Slack canvas...</progressIndicatorMessage>
+            <source>Slack__CreateSlackCanvas</source>
+        </localActions>
+        <localDeveloperName>SlackExecutiveBrief</localDeveloperName>
+        <masterLabel>Create an Executive Brief in Slack</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to help create an executive brief for a Salesforce record in Slack by creating, updating and sharing a Slack canvas.</scope>
+        <source>Slack__SlackExecutiveBrief</source>
+    </localTopics>
+    <masterLabel>RM Assist</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jak000001j3kL</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jak000001j3kL</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+</GenAiPlannerBundle>
