@@ -1,3 +1,3 @@
 # Market Monitoring Agent
 
-https://docs.google.com/document/d/1FpRgPinDFYsVlxhIBTfvPGKbLti9Y-3mUEMIBCkalzQ/edit?tab=t.y0bjvkqt2ri
+[Project Documentation](https://docs.google.com/document/d/18jG_v32s0ASjB1y3ZA1zyHEFuMYUE-yv0Sv0VWEFp7c/edit?usp=sharing)
