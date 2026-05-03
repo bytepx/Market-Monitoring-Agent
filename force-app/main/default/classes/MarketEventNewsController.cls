@@ -111,4 +111,25 @@ public static void runEmailFlow(String recordId) {
         throw new AuraHandledException('Flow execution failed: ' + e.getMessage());
     }
 }
+@AuraEnabled
+public static void runWhatsAppFlow(String recordId) {
+
+    if (String.isBlank(recordId)) {
+        throw new AuraHandledException('RecordId is missing');
+    }
+
+    try {
+        Map<String, Object> inputs = new Map<String, Object>{
+            'recordId' => recordId
+        };
+
+        Flow.Interview.Whatsapp_Message_Notify flow =
+            new Flow.Interview.Whatsapp_Message_Notify(inputs);
+
+        flow.start();
+
+    } catch (Exception e) {
+        throw new AuraHandledException('WhatsApp Flow failed: ' + e.getMessage());
+    }
+}
 }

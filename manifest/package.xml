@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>StockController</members>
+		<members>AgentSendWhatsApp</members>
+		<members>ImpactedAccountDetail</members>
+		<members>MarketEventIntelligenceAction</members>
 		<members>MarketEventNewsController</members>
-        <members>MarketEventIntelligenceAction</members>
 		<members>MarketEventPromptUpdater</members>
+		<members>MarketImpactGrounder</members>
+		<members>NewsIngestionFlow</members>
+		<members>NewsScheduler</members>
+		<members>StockController</members>
+		<members>TwilioWhatsAppService</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
@@ -32,9 +38,9 @@
 		<members>AdvisoryMessage__c</members>
 		<members>ClientImpact__c</members>
 		<members>CommunicationLog__c</members>
+		<members>Customer_Portfolio_Summary__c</members>
 		<members>Market_Event__c</members>
 		<members>PreCallBrief__c</members>
-		<members>Customer_Portfolio_Summary__c</members>
 		<name>CustomObject</name>
 	</types>
 	<types>
@@ -44,14 +50,22 @@
 		<name>FlexiPage</name>
 	</types>
 	<types>
+		<members>Create_Follow_up_Task</members>
+		<members>Highly_Impacted_Cleint</members>
 		<members>Market_Email_Notify</members>
 		<members>Market_Event_New_Summarizer</members>
+		<members>Whatsapp_Message_Notify</members>
 		<name>Flow</name>
 	</types>
 	<types>
 		<members>marketEventNewsPanel</members>
 		<members>stockViewer</members>
 		<name>LightningComponentBundle</name>
+	</types>
+	<types>
+		<members>Indian_Stock_Market_API</members>
+		<members>Twilio_API</members>
+		<name>RemoteSiteSetting</name>
 	</types>
 	<version>66.0</version>
 </Package>
