@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_7</activeVersionIdentifier>
+    <developerName>Latest_Indian_Stock_Market_News</developerName>
+    <masterLabel>Latest Indian Stock Market News</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Your task is to analyze multiple stock market news records and identify ONLY the most impactful news events that can significantly affect stock prices and industries.
+INPUT:
+You will receive multiple news records with:
+Topic
+News Date
+Description
+YOUR JOB:
+Analyze each news item carefully.
+Identify the industry/sector impacted (IT, Banking, Pharma, Auto, Energy, FMCG, etc.).
+Determine sentiment:
+Positive → growth, profit, expansion
+Negative → loss, decline, slowdown, risk
+Neutral → unclear or mixed
+Assign an Impact Score (0–10 scale):
+8–10 → Very high market impact
+5–7 → Moderate impact
+1–4 → Low impact
+0 → No meaningful impact
+Estimate Impact Percentage:
+High → 3 to 7
+Medium → 1 to 3
+Low → 0 to 1
+Select ONLY top impactful news:
+Include only records where impact_score &gt;= 5
+Ignore low-impact or irrelevant news
+Provide a short reason
+
+STRICT RULES:
+Return ONLY valid JSON
+No explanations outside JSON
+Keep output structured and clean
+If no impactful news found, return empty array []
+
+OUTPUT FORMAT:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+
+Analyze the following market news data:
+{!$Input:Indian_Stock_Market_News.event_time__c}
+{!$Input:Indian_Stock_Market_News.topics__c}
+{!$Input:Indian_Stock_Market_News.summary__c}
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Indian_Stock_Market_News</apiName>
+            <definition>SOBJECT://Indian_Stock_Market_News__dlm</definition>
+            <masterLabel>Indian_Stock_Market_News__dlm</masterLabel>
+            <referenceName>Input:Indian_Stock_Market_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Analyze multiple stock market news records and identify only the most impactful events.
+Rules:
+Identify sector (IT, Banking, Pharma, etc.)
+Identify sentiment (Positive, Negative, Neutral)
+Assign impact_score (0–10)
+Assign impact_level (High/Medium/Low)
+Assign impact_percentage (number only)
+Select only events where impact_score &gt;= 5
+Give short reason 
+Return ONLY JSON (no text outside JSON)
+Format:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Indian_Stock_Market_News</apiName>
+            <definition>SOBJECT://Indian_Stock_Market_News__dlm</definition>
+            <masterLabel>Indian_Stock_Market_News__dlm</masterLabel>
+            <referenceName>Input:Indian_Stock_Market_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Analyze multiple stock market news records and identify only the most impactful events.
+Rules:
+Identify sector (IT, Banking, Pharma, etc.)
+Identify sentiment (Positive, Negative, Neutral)
+Assign impact_score (0–10)
+Assign impact_level (High/Medium/Low)
+Assign impact_percentage (number only)
+Select only events where impact_score &gt;= 5
+Give short reason 
+Return ONLY JSON (no text outside JSON)
+Format:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Enter_News</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Enter News To Analyze</masterLabel>
+            <referenceName>Input:Enter_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_3</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Analyze the provided stock market news records and identify only the most impactful events.
+Rules:
+Identify the primary sector (IT, Banking, Pharma, Auto, Energy, FMCG, etc.)
+Determine sentiment (Positive, Negative, Neutral)
+Assign impact_score (0–10)
+Assign impact_level:
+High (8–10)
+Medium (5–7)
+Assign impact_percentage:
+High → 3 to 7
+Medium → 1 to 3
+Include ONLY events where impact_score &gt;= 5
+Provide a short reason (max 10 words)
+STRICT RULES:
+Return ONLY valid JSON
+Do NOT include any explanation or text outside JSON
+If no impactful events, return: { &quot;top_events&quot;: [] }
+Output Format:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+
+Analyze the following market news:
+{!$Input:Enter_News}
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Enter_News</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Enter News To Analyze</masterLabel>
+            <referenceName>Input:Enter_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_4</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Analyze the provided stock market news records and identify only the most impactful events.
+SECTOR CLASSIFICATION RULE (STRICT):
+You MUST assign ONLY ONE sector from this list:
+IT
+Banking
+Pharma
+Auto
+Energy
+FMCG
+Steel
+Cement
+Engineering
+Conglomerate
+If the news does NOT clearly fit any of the above sectors, assign:
+Other
+Do NOT create new sector names.
+Do NOT combine sectors (e.g., &quot;Steel/Metals&quot; is NOT allowed).
+
+SENTIMENT:
+Positive
+Negative
+Neutral
+IMPACT RULES:
+Assign impact_score (0–10)
+Assign impact_level:
+High → 8 to 10
+
+Medium → 5 to 7
+Assign impact_percentage:
+High → 4 to 7
+Medium → 1 to 3
+
+FILTER RULE:
+Include ONLY events where impact_score &gt;= 5
+REASON:
+Provide a short reason (max 10 words)
+STRICT OUTPUT RULES:
+Return ONLY valid JSON
+Do NOT include any explanation or extra text
+If no impactful events, return:
+{ &quot;top_events&quot;: [] }
+OUTPUT FORMAT:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+Analyze the following market news:
+{!$Input:Enter_News}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Enter_News</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Enter News To Analyze</masterLabel>
+            <referenceName>Input:Enter_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/Indian_Stock_Market_News_Retriever_1Cx_kHZe51cf034</definition>
+            <label>Indian Stock Market News Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Indian_Stock_Market_News.title__c}
+{!$Input:Indian_Stock_Market_News.event_time__c}{!$Input:Indian_Stock_Market_News.summary__c}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:Indian_Stock_Market_News_Retriever_1Cx_kHZe51cf034</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_5</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Analyze the provided stock market news records and identify only the most impactful events.
+SECTOR CLASSIFICATION RULE (STRICT):
+You MUST assign ONLY ONE sector from this list:
+IT
+Banking
+Pharma
+Auto
+Energy
+FMCG
+Steel
+Cement
+Engineering
+Conglomerate
+If the news does NOT clearly fit any of the above sectors, assign:
+Other
+Do NOT create new sector names.
+Do NOT combine sectors (e.g., &quot;Steel/Metals&quot; is NOT allowed).
+
+SENTIMENT:
+Positive
+Negative
+Neutral
+IMPACT RULES:
+Assign impact_score (0–10)
+Assign impact_level:
+High → 8 to 10
+Medium → 5 to 7
+
+Assign impact_percentage:
+High → 4 to 7
+Medium → 1 to 3
+
+FILTER RULE:
+Include ONLY events where impact_score &gt;= 5
+REASON:
+Provide a short reason (max 10 words)
+STRICT OUTPUT RULES:
+Return ONLY valid JSON
+Do NOT include any explanation or extra text
+If no impactful events, return:
+{ &quot;top_events&quot;: [] }
+OUTPUT FORMAT:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+Analyze the following market news:
+{!$Input:Enter_News}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Enter_News</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Enter News To Analyze</masterLabel>
+            <referenceName>Input:Enter_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_6</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Analyze the provided stock market news records and identify only the most impactful events.
+SECTOR CLASSIFICATION RULE (STRICT):
+You MUST assign ONLY ONE sector from this list:
+IT
+Banking
+Pharma
+Auto
+Energy
+FMCG
+Steel
+Cement
+Engineering
+Conglomerate
+If the news does NOT clearly fit any of the above sectors, assign:
+Other
+Do NOT create new sector names.
+Do NOT combine sectors (e.g., &quot;Steel/Metals&quot; is NOT allowed).
+
+SENTIMENT:
+Positive
+Negative
+Neutral
+IMPACT RULES:
+Assign impact_score (0–10)
+Assign impact_level:
+High → 8 to 10
+Medium → 5 to 7
+
+Assign impact_percentage:
+High → 4 to 7
+Medium → 1 to 3
+
+FILTER RULE:
+Include ONLY events where impact_score &gt;= 5
+REASON:
+Provide a Breif reason 
+STRICT OUTPUT RULES:
+Return ONLY valid JSON
+Do NOT include any explanation or extra text
+If no impactful events, return:
+{ &quot;top_events&quot;: [] }
+OUTPUT FORMAT:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+Analyze the following market news:
+{!$Input:Enter_News}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Enter_News</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Enter News To Analyze</masterLabel>
+            <referenceName>Input:Enter_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_7</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a financial market intelligence AI.
+Analyze the provided stock market news records and identify only the most impactful events.
+SECTOR CLASSIFICATION RULE (STRICT):
+You MUST assign ONLY ONE sector from this list:
+IT
+Banking
+Pharma
+Auto
+Energy
+FMCG
+Steel
+Cement
+Engineering
+Conglomerate
+If the news does NOT clearly fit any of the above sectors, assign:
+Other
+Do NOT create new sector names.
+Do NOT combine sectors (e.g., &quot;Steel/Metals&quot; is NOT allowed).
+
+SENTIMENT:
+Positive
+Negative
+Neutral
+IMPACT RULES:
+Assign impact_score (0–10)
+Assign impact_level:
+High → 8 to 10
+Medium → 5 to 7
+
+Assign impact_percentage:
+High → 4 to 7
+Medium → 1 to 3
+
+FILTER RULE:
+Include ONLY events where impact_score &gt;= 5
+REASON:
+Provide a Breif reason 
+STRICT OUTPUT RULES:
+topic must be max 80 characters
+date must be in format yyyy-MM-dd
+Return ONLY valid JSON
+Do NOT include any explanation or extra text
+If no impactful events, return:
+{ &quot;top_events&quot;: [] }
+OUTPUT FORMAT:
+{
+&quot;top_events&quot;: [
+{
+&quot;topic&quot;: &quot;&quot;,
+&quot;date&quot;: &quot;&quot;,
+&quot;sector&quot;: &quot;&quot;,
+&quot;sentiment&quot;: &quot;&quot;,
+&quot;impact_score&quot;: 0,
+&quot;impact_level&quot;: &quot;&quot;,
+&quot;impact_percentage&quot;: 0,
+&quot;reason&quot;: &quot;&quot;
+}
+]
+}
+Analyze the following market news:
+{!$Input:Enter_News}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Enter_News</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Enter News To Analyze</masterLabel>
+            <referenceName>Input:Enter_News</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/Indian_Stock_Market_News_Retriever_1Cx_kHZe51cf034</definition>
+            <label>Indian Stock Market News Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Indian_Stock_Market_News.title__c}
+{!$Input:Indian_Stock_Market_News.event_time__c}{!$Input:Indian_Stock_Market_News.summary__c}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:Indian_Stock_Market_News_Retriever_1Cx_kHZe51cf034</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_8</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
