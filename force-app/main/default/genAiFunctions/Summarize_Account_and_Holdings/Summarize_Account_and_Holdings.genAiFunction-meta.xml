@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Use this action to provide a combined summary of a customer&apos;s Salesforce Account details and their Demat Holdings from Data Cloud. This action should be triggered whenever a user asks for an &apos;account summary,&apos; &apos;holdings details,&apos; or provides a company name or PAN number seeking financial information. It requires the Account  as an input, which should be retrieved by first searching the connected Data Cloud Library if only a name is provided.</description>
+    <developerName>Summarize_Account_and_Holdings</developerName>
+    <invocationTarget>Summarize_Account_and_Holdings</invocationTarget>
+    <invocationTargetType>generatePromptResponse</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+    <localDeveloperName>Summarize_Account_and_Holdings</localDeveloperName>
+    <masterLabel>Summarize_Account_and_Holdings</masterLabel>
+</GenAiFunction>

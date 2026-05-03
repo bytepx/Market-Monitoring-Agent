@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+    <canEscalate>false</canEscalate>
+    <description>Use this action when a user wants a comprehensive summary of a client&apos;s profile, including their financial accounts and holdings. This action should also be used to provide strategic market suggestions and investment ideas based on the client&apos;s existing portfolio data</description>
+    <developerName>Agent_RM</developerName>
+    <genAiFunctions>
+        <functionName>AutoGenAi__SummarizeCustomerAccount</functionName>
+    </genAiFunctions>
+    <language>en_US</language>
+    <localDeveloperName>Agent_RM</localDeveloperName>
+    <masterLabel>Agent RM</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>The scope of this topic is to facilitate conversations regarding client financial health. It is authorized to retrieve data from Salesforce Accounts, Financial Accounts, and Holdings. It is responsible for analyzing this data to identify market opportunities, sector concentrations, and personalized investment ideas. It should provide professional, data-backed insights to the team to assist in client advisory meetings</scope>
+</GenAiPlugin>
