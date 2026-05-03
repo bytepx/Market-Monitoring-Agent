@@ -1,0 +1,15 @@
+.green {
+    color: #2e844a;
+    font-weight: 600;
+}
+
+.red {
+    color: #ba0517;
+    font-weight: 600;
+}
+.header-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}

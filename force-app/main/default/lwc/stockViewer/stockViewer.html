@@ -1,0 +1,57 @@
+<template>
+    <lightning-card title="📈 Demat Holdings - Live Prices">
+        <!-- Top Right Refresh Icon -->
+        <div class="header-actions">
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="Refresh Prices"
+                title="Refresh Prices"
+                onclick={handleRefresh}
+                variant="border-filled"
+            >
+            </lightning-button-icon>
+        </div>
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+
+        <template if:true={stocks}>
+            <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered"
+            >
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Current Price</th>
+                        <th>Buy Price</th>
+                        <th>Gain / Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={stocks} for:item="stock">
+                        <tr key={stock.ticker}>
+                            <td>{stock.ticker}</td>
+                            <td>{stock.currentPriceFormatted}</td>
+                            <td>{stock.buyPriceFormatted}</td>
+
+                            <td class={stock.gainClass}>
+                                <lightning-icon
+                                    icon-name={stock.gainIcon}
+                                    size="x-small"
+                                    variant={stock.gainIconVariant}
+                                >
+                                </lightning-icon>
+                                {stock.gainFormatted}
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-text-color_error">Error loading stock data</div>
+        </template>
+    </lightning-card>
+</template>
