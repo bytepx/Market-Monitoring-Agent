@@ -25,7 +25,7 @@ public with sharing class StockController {
 
                 req.setEndpoint(endpoint);
                 req.setMethod('GET');
-                req.setHeader('x-api-key', 'sk-live-9DmQo56iOY4O54JuL4W7nPtF6GibSYmixrXObclk');
+                req.setHeader('x-api-key', 'sk-live-DDUabdGc8y1OcPc3eqgwte4hFNiM81HbW0sSCQCq');
                 req.setHeader('accept', 'application/json');
                 req.setTimeout(5000);
 

@@ -7,6 +7,7 @@ import { NavigationMixin } from 'lightning/navigation';
 import findAccountByName from '@salesforce/apex/MarketEventNewsController.findAccountByName';
 import { FlowNavigationNextEvent } from 'lightning/flowSupport';
 import runEmailFlow from '@salesforce/apex/MarketEventNewsController.runEmailFlow';
+import runWhatsAppFlow from '@salesforce/apex/MarketEventNewsController.runWhatsAppFlow';
 
 export default class MarketEventNewsPanel extends NavigationMixin(LightningElement) {
 
@@ -127,9 +128,9 @@ this.customers = (result || []).map(row => {
             type: 'action',
             typeAttributes: {
                 rowActions: [
-                    { label: 'Notify Customer', name: 'notify' },
                     { label: 'View Account', name: 'view' },
-                    { label: 'Send Email', name: 'send_email' }
+                    { label: 'Send Email', name: 'send_email' },
+                    { label: 'Send WhatsApp', name: 'send_whatsapp' }
                 ]
             }
         }
@@ -228,6 +229,9 @@ handleRowAction(event) {
     }
     else if (actionName === 'openAccount') {  
         this.viewRecord(row);
+    }
+    else if (actionName === 'send_whatsapp') {
+        this.triggerWhatsAppFlow(row);
     }
 }
 async notifyCustomer(row) {
@@ -346,6 +350,49 @@ handleFlowStatus(event) {
                 title: 'Success',
                 message: 'Email sent successfully',
                 variant: 'success'
+            })
+        );
+    }
+}
+async triggerWhatsAppFlow(row) {
+    try {
+        console.log('Row:', JSON.stringify(row));
+
+        const accId = await findAccountByName({
+            customerName: row.Customer_Name__c
+        });
+
+        if (!accId) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: 'No matching Account found',
+                    variant: 'error'
+                })
+            );
+            return;
+        }
+
+        console.log('Account Id:', accId);
+
+        await runWhatsAppFlow({ recordId: accId });
+
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Success',
+                message: 'WhatsApp sent successfully',
+                variant: 'success'
+            })
+        );
+
+    } catch (error) {
+        console.error('WhatsApp Flow Error:', error);
+
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Error',
+                message: error?.body?.message || 'WhatsApp flow failed',
+                variant: 'error'
             })
         );
     }
