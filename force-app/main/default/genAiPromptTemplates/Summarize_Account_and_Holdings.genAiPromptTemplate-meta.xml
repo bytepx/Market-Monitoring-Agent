@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_11</activeVersionIdentifier>
+    <developerName>Summarize_Account_and_Holdings</developerName>
+    <masterLabel>Summarize_Account_and_Holdings</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value.
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.Name}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value.
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.Name}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value.
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_3</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value.
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.Name}{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_4</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value.
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_5</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value and Pan Number
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;,&quot;PAN&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_6</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value and Pan Number and only Show the records which matches Account&apos;s PAN Number
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;,&quot;PAN&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_7</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value and Pan Number and only Show the records which matches Account&apos;s PAN Number
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;,&quot;PAN&quot;,&quot;Quantity&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_8</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+MOST RECENT MARKET EVENT:
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value and Pan Number and only Show the records which matches Account&apos;s PAN Number
+3. Compare the sectors in the &quot;Demat Holdings&quot; section with the sector in the &quot;Market Event&quot; section above. If they match, explain the impact
+4. If they match, explain the impact. If they don&apos;t match, simply summarize the holdings and mention the market event as general news
+3. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;,&quot;PAN&quot;,&quot;Quantity&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_9</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+MOST RECENT MARKET EVENT:
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+Use the following mapping to connect Demat Sectors to Market Events:
+- &quot;Technology&quot; (Demat) = &quot;IT&quot; (Market Event)
+- &quot;Healthcare&quot; (Demat) = &quot;Pharma&quot; (Market Event)
+- &quot;Financials&quot; (Demat) = &quot;Banking&quot; (Market Event)
+- &quot;FMCG&quot; (Demat) = &quot;FMCG&quot; (Market Event)
+- &quot;Industrials&quot; or &quot;Materials&quot; (Demat) = &quot;Cement&quot; (Market Event)
+- &quot;Energy&quot; or &quot;Utilities&quot; (Demat) = &quot;Conglomerate&quot; (Market Event - typically for multi-sector firms)
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value and Pan Number and only Show the records which matches Account&apos;s PAN Number
+3Identify the **Sector__c** for each stock in the client&apos;s holdings (e.g., Infosys is &quot;Technology&quot;).
+4. Check the **Industry__c** of the latest Market Events (e.g., &quot;IT&quot;).
+5. Use the Mapping Rules to see if they match (e.g., Technology matches IT).
+6. **Summary**: If a match is found, explain the specific impact (Positive/Negative) on that holding. If no match is found (e.g., &quot;Telecom&quot;), list the stock normally but mention no specific market event is available.
+
+7. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;,&quot;PAN&quot;,&quot;Quantity&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_10</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a comprehensive summary for the client.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+MOST RECENT MARKET EVENT:
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+Use the following mapping to connect Demat Sectors to Market Events:
+- &quot;Technology&quot; (Demat) = &quot;IT&quot; (Market Event)
+- &quot;Healthcare&quot; (Demat) = &quot;Pharma&quot; (Market Event)
+- &quot;Financials&quot; (Demat) = &quot;Banking&quot; (Market Event)
+- &quot;FMCG&quot; (Demat) = &quot;FMCG&quot; (Market Event)
+- &quot;Industrials&quot; or &quot;Materials&quot; (Demat) = &quot;Cement&quot; (Market Event)
+- &quot;Energy&quot; or &quot;Utilities&quot; (Demat) = &quot;Conglomerate&quot; (Market Event - typically for multi-sector firms)
+
+
+
+### Task
+1. Summarize the overall account status.
+2. List each Demat holding with its current quantity and market value and Pan Number and only Show the records which matches Account&apos;s PAN Number
+only Quantity and Market Values 
+3. Identify the **Sector__c** for each stock in the client&apos;s holdings (e.g., Infosys is &quot;Technology&quot;).
+4. Check the **Industry__c** of the latest Market Events (e.g., &quot;IT&quot;).
+5. Use the Mapping Rules to see if they match (e.g., Technology matches IT).
+6. **Summary**: If a match is found, explain the specific impact (Positive/Negative) on that holding. and give the name of impacted Demat holding with summary  If no match is found (e.g., &quot;Telecom&quot;), list the stock normally but mention no specific market event is available.
+
+7. Total the value of all holdings.
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Buy_Price&quot;,&quot;PAN&quot;,&quot;Quantity&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_11</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

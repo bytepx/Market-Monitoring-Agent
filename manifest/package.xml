@@ -58,6 +58,15 @@
 		<name>Flow</name>
 	</types>
 	<types>
+		<members>Latest_Indian_Stock_Market_News</members>
+		<members>MarketImpactGrounder</members>
+		<members>Market_Event_Email_Generator</members>
+		<members>Market_News_Summarizer</members>
+		<members>Summarize_Account_and_Holdings</members>
+		<members>Whatsapp_Message_Generator</members>
+		<name>GenAiPromptTemplate</name>
+	</types>
+	<types>
 		<members>marketEventNewsPanel</members>
 		<members>stockViewer</members>
 		<name>LightningComponentBundle</name>

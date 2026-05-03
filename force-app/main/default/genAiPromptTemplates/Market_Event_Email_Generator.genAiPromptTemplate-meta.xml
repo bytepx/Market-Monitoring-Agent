@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_1</activeVersionIdentifier>
+    <developerName>Market_Event_Email_Generator</developerName>
+    <masterLabel>Market Event Email Generator</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are a senior financial advisor and corporate communication expert.
+
+Your task is to generate a professional email for a customer affected by a negative market event.
+
+---
+
+INPUT DATA:
+
+Customer Name: {!$Input:customerName}
+Market Event Title: {!$Input:newsTitle}
+Market Event Summary: {!$Input:newsSummary}
+
+Customer Total Portfolio Value: {!$Input:portfolio} INR
+
+Industry Exposure Impact: {!$Input:impactedPercent} %
+
+---
+
+TASK:
+
+Generate:
+
+1. A short professional EMAIL SUBJECT
+2. A clear EMAIL BODY
+
+---
+
+SUBJECT REQUIREMENTS:
+- Maximum 12 words
+- Must reflect market impact or portfolio risk
+- Must be professional and formal
+
+---
+
+EMAIL BODY REQUIREMENTS:
+
+- Start with a greeting using customer name
+- Explain the market event in simple terms
+- Clearly mention:
+ - impact percentage ({{impactedPercent}} %)
+ - total portfolio value ({{portfolio}} INR)
+- Explain possible impact on investments
+- Provide calm advisory tone (no panic)
+- Keep it concise and professional
+
+---
+
+IMPORTANT RULES:
+
+- Do NOT give investment advice (no buy/sell)
+- Do NOT exaggerate risk
+- Do NOT use emotional or alarming language
+- Keep tone corporate and neutral
+- Use simple financial language
+
+---
+
+OUTPUT FORMAT (STRICT):
+
+Subject: &lt;generated subject&gt;
+
+Body:
+&lt;generated email body&gt;
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>customerName</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>customerName</masterLabel>
+            <referenceName>Input:customerName</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>newsTitle</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>newsTitle</masterLabel>
+            <referenceName>Input:newsTitle</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>newsSummary</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>newsSummary</masterLabel>
+            <referenceName>Input:newsSummary</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>portfolio</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>portfolio</masterLabel>
+            <referenceName>Input:portfolio</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>impactedPercent</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>impactedPercent</masterLabel>
+            <referenceName>Input:impactedPercent</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

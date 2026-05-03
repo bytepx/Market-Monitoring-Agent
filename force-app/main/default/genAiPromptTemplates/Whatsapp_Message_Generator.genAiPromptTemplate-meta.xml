@@ -1,0 +1,1269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_15</activeVersionIdentifier>
+    <developerName>Whatsapp_Message_Generator</developerName>
+    <masterLabel>Whatsapp Message Generator</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a concise WhatsApp summary for the client. Only include Demat holding data where the PAN Number matches the Account PAN Number.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+MOST RECENT MARKET EVENT:
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+Use the following mapping to connect Demat Sectors to Market Events:
+- &quot;Technology&quot; (Demat) = &quot;IT&quot; (Market Event)
+- &quot;Healthcare&quot; (Demat) = &quot;Pharma&quot; (Market Event)
+- &quot;Financials&quot; (Demat) = &quot;Banking&quot; (Market Event)
+- &quot;FMCG&quot; (Demat) = &quot;FMCG&quot; (Market Event)
+- &quot;Industrials&quot; or &quot;Materials&quot; (Demat) = &quot;Cement&quot; (Market Event)
+- &quot;Energy&quot; or &quot;Utilities&quot; (Demat) = &quot;Conglomerate&quot; (Market Event)
+
+### Task
+1. Summarize the overall account status.
+2. From Demat holdings, ONLY include records where PAN Number = {!$Input:Account.PAN__c}. Ignore all other records.
+3. For each matching holding, show only:
+  - Stock Name
+  - Quantity
+  - Market Value
+4. Identify Sector__c for each stock.
+5. Compare Sector__c with Market Event Industry__c using mapping rules.
+6. If matched → explain impact (Positive/Negative) with stock name.
+  If not matched → mention no relevant market event available.
+7. Calculate total portfolio value using ONLY filtered records.
+8. Generate final output as a clean, concise WhatsApp message (no emojis).
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a concise WhatsApp summary for the client. Only include Demat holding data where the PAN Number matches the Account PAN Number.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+MOST RECENT MARKET EVENT:
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+Use the following mapping to connect Demat Sectors to Market Events:
+- &quot;Technology&quot; (Demat) = &quot;IT&quot; (Market Event)
+- &quot;Healthcare&quot; (Demat) = &quot;Pharma&quot; (Market Event)
+- &quot;Financials&quot; (Demat) = &quot;Banking&quot; (Market Event)
+- &quot;FMCG&quot; (Demat) = &quot;FMCG&quot; (Market Event)
+- &quot;Industrials&quot; or &quot;Materials&quot; (Demat) = &quot;Cement&quot; (Market Event)
+- &quot;Energy&quot; or &quot;Utilities&quot; (Demat) = &quot;Conglomerate&quot; (Market Event)
+
+### Task
+1. Summarize the overall account status.
+2. From Demat holdings, ONLY include records where PAN Number = {!$Input:Account.PAN__c}. Ignore all other records.
+3. For each matching holding, show only:
+  - Stock Name
+  - Quantity
+  - Market Value
+4. Identify Sector__c for each stock.
+5. Compare Sector__c with Market Event Industry__c using mapping rules.
+6. If matched → explain impact (Positive/Negative) with stock name.
+  If not matched → mention no relevant market event available.
+7. Calculate total portfolio value using ONLY filtered records.
+8. Generate final output as a clean, concise WhatsApp message (no emojis).
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a concise WhatsApp summary for the client. Only include Demat holding data where the PAN Number matches the Account PAN Number.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+MOST RECENT MARKET EVENT:
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+Use the following mapping to connect Demat Sectors to Market Events:
+- &quot;Technology&quot; (Demat) = &quot;IT&quot; (Market Event)
+- &quot;Healthcare&quot; (Demat) = &quot;Pharma&quot; (Market Event)
+- &quot;Financials&quot; (Demat) = &quot;Banking&quot; (Market Event)
+- &quot;FMCG&quot; (Demat) = &quot;FMCG&quot; (Market Event)
+- &quot;Industrials&quot; or &quot;Materials&quot; (Demat) = &quot;Cement&quot; (Market Event)
+- &quot;Energy&quot; or &quot;Utilities&quot; (Demat) = &quot;Conglomerate&quot; (Market Event)
+
+### Task
+1. Summarize the overall account status.
+2. From Demat holdings, ONLY include records where PAN Number = {!$Input:Account.PAN__c}. Ignore all other records.
+Do NOT include sector names in holdings list
+- Do NOT repeat same stock multiple times
+- Do NOT exceed 1200 characters
+f no market match → write &quot;No significant impact&quot;
+3. For each matching holding, show only:
+  - Stock Name
+  - Quantity
+  - Market Value
+4. Identify Sector__c for each stock.
+5. Compare Sector__c with Market Event Industry__c using mapping rules.
+6. If matched → explain impact (Positive/Negative) with stock name.
+  If not matched → mention no relevant market event available.
+7. Calculate total portfolio value using ONLY filtered records.
+8. Generate final output as a clean, concise WhatsApp message (no emojis).
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_3</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Use the provided Account and Holding data to create a concise WhatsApp summary for the client. Only include Demat holding data where the PAN Number matches the Account PAN Number.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+Below are the real-time holding details retrieved from Data Cloud:
+
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results} 
+
+MOST RECENT MARKET EVENT:
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+Use the following mapping to connect Demat Sectors to Market Events:
+- &quot;Technology&quot; (Demat) = &quot;IT&quot; (Market Event)
+- &quot;Healthcare&quot; (Demat) = &quot;Pharma&quot; (Market Event)
+- &quot;Financials&quot; (Demat) = &quot;Banking&quot; (Market Event)
+- &quot;FMCG&quot; (Demat) = &quot;FMCG&quot; (Market Event)
+- &quot;Industrials&quot; or &quot;Materials&quot; (Demat) = &quot;Cement&quot; (Market Event)
+- &quot;Energy&quot; or &quot;Utilities&quot; (Demat) = &quot;Conglomerate&quot; (Market Event)
+
+### Task
+1. Summarize the overall account status.
+2. From Demat holdings, ONLY include records where PAN Number = {!$Input:Account.PAN__c}. Ignore all other records.
+Do NOT include sector names in holdings list
+- Do NOT repeat same stock multiple times
+- Do NOT exceed 1200 characters
+f no market match → write &quot;No significant impact&quot;
+3. For each matching holding, show only:
+  - Stock Name
+  - Quantity
+  - Market Value
+4. Identify Sector__c for each stock.
+5. Compare Sector__c with Market Event Industry__c using mapping rules.
+6. If matched → explain impact (Positive/Negative) with stock name.
+  If not matched → mention no relevant market event available.
+7. Calculate total portfolio value using ONLY filtered records.
+8. Generate final output as a clean, concise WhatsApp message (no emojis).
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_4</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+Generate a SHORT WhatsApp message using ONLY the provided data.
+
+Strict rules:
+- Use ONLY records where PAN = {!$Input:Account.PAN__c}
+- Ignore all other records
+- Max 800 characters
+- Max 6 holdings only (top by Market Value)
+- No emojis
+- No extra explanation
+- No repeated stocks
+- If no market match → write &quot;No significant impact&quot;
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### MOST RECENT MARKET EVENT
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Output Format (STRICT)
+
+{Account Name} | PAN: {PAN}
+
+Holdings:
+{Stock} - Qty {Quantity} - ₹{Value}
+(max 6 only)
+
+Impact:
+{Stock} - {Negative/Positive/No significant impact}
+(only for matched sectors)
+
+Total:
+₹{Total Value}
+
+Note:
+{1 short line only}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_5</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a short WhatsApp message using only the provided data.
+
+### Rules
+- Use ONLY records where PAN = {!$Input:Account.PAN__c}
+- Do NOT show individual stock names
+- Group data strictly by Sector__c
+- Calculate total value per sector
+- Show ONLY sectors with data
+- Max 900 characters
+- Keep message short, structured, and WhatsApp-friendly
+- No emojis, no long paragraphs, no repetition
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### MOST RECENT MARKET EVENT
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Filter holdings strictly by PAN.
+2. Group by Sector__c and calculate total value per sector.
+3. Calculate total portfolio value.
+4. Identify Market Event Industry__c and Sentiment.
+5. Match sector using mapping rules.
+
+6. Market Impact Logic:
+- If matched:
+ {Sector}: {Positive/Negative} - {short reason from market event}
+- If not matched:
+ {Sector}: No significant impact
+
+### Output Format (STRICT)
+
+{Account Name} | PAN: {PAN}
+
+Portfolio Value: ₹{Total Value}
+
+Sector Exposure:
+- {Sector}: ₹{Value}
+- {Sector}: ₹{Value}
+
+Market Impact:
+- {Sector}: {Impact}
+
+Advisory:
+{One short professional advisory line}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_6</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a short WhatsApp message using ONLY the provided data.
+
+### Strict Rules (MANDATORY)
+- Use ONLY Demat records where PAN = {!$Input:Account.PAN__c}
+- Ignore ALL other records completely
+- Do NOT assume or add any missing data
+- Do NOT include sectors that are NOT present in filtered data
+- Do NOT show individual stock names
+- Show ONLY sectors that exist after PAN filtering
+- Show ONLY sectors that have value &gt; 0
+- Max 900 characters
+- Keep output short, clean, WhatsApp-friendly
+- No emojis, no extra explanation, no repetition
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### MOST RECENT MARKET EVENT
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+
+1. Filter Demat data STRICTLY by PAN.
+2. Group ONLY filtered records by Sector__c.
+3. Calculate total value per sector.
+4. Calculate total portfolio value (only filtered data).
+5. Identify Market Event Industry and Sentiment.
+
+6. Impact Rules (VERY STRICT):
+- Show impact ONLY for sectors that MATCH the market event
+- Do NOT list non-matching sectors in impact section
+- If NO sector matches → write ONLY: &quot;No significant impact&quot;
+
+### Output Format (STRICT)
+
+{Account Name} | PAN: {PAN}
+
+Portfolio Value: ₹{Total Value}
+
+Sector Exposure:
+- {Sector}: ₹{Value}
+- {Sector}: ₹{Value}
+
+Market Impact:
+- {ONLY matched sector}: {Positive/Negative} - {1 short reason}
+OR
+- No significant impact
+
+Advisory:
+{One short line}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_7</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a short WhatsApp message using only the provided data.
+
+### Rules
+- Use ONLY records where PAN = {!$Input:Account.PAN__c}
+- Do NOT show individual stock names
+- Group data strictly by Sector__c
+- Calculate total value per sector
+- Show ONLY sectors with data
+- Max 900 characters
+- Keep message short, structured, and WhatsApp-friendly
+- No emojis, no long paragraphs, no repetition
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### MOST RECENT MARKET EVENT
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Filter holdings strictly by PAN.
+2. Group by Sector__c and calculate total value per sector.
+3. Calculate total portfolio value.
+4. Identify Market Event Industry__c and Sentiment.
+5. Match sector using mapping rules.
+
+6. Market Impact Logic:
+- If matched:
+ {Sector}: {Positive/Negative} - {short reason from market event}
+- If not matched:
+ {Sector}: No significant impact
+
+### Output Format (STRICT)
+
+{Account Name} | PAN: {PAN}
+
+Portfolio Value: ₹{Total Value}
+
+Sector Exposure:
+- {Sector}: ₹{Value}
+- {Sector}: ₹{Value}
+
+Market Impact:
+- {Sector}: {Impact}
+
+Advisory:
+{One short professional advisory line}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_8</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a short WhatsApp message using only the provided data.
+
+### Rules
+- Use ONLY records where PAN = {!$Input:Account.PAN__c}
+- Do NOT show individual stock names
+- Group data strictly by Sector__c
+- Calculate total value per sector
+- Show ONLY sectors with data
+- Max 900 characters
+- Keep message short, structured, and WhatsApp-friendly
+- No emojis, no long paragraphs, no repetition
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### MOST RECENT MARKET EVENT
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Filter holdings strictly by PAN.
+2. Group by Sector__c and calculate total value per sector.
+3. Calculate total portfolio value.
+4. Identify Market Event Industry__c and Sentiment.
+5. Match sector using mapping rules.
+
+6. Market Impact Logic:
+- If matched:
+ {Sector}: {Positive/Negative} - {short reason from market event}
+- If not matched:
+ {Sector}: No significant impact
+
+### Output Format (STRICT)
+
+{Account Name} | PAN: {PAN}
+
+Portfolio Value: ₹{Total Value}
+
+Sector Exposure:
+- {Sector}: ₹{Value}
+- {Sector}: ₹{Value}
+
+Market Impact:
+- {Sector}: {Impact}
+
+Advisory:
+{One short professional advisory line}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_9</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a short WhatsApp message using only the provided data.
+
+### Rules
+- Use ONLY records where PAN = {!$Input:Account.PAN__c}
+- Do NOT show individual stock names
+- Group data strictly by Sector__c
+- Calculate total value per sector
+- Show ONLY sectors with data
+- Max 900 characters
+- Keep message short, structured, and WhatsApp-friendly
+- No emojis, no long paragraphs, no repetition
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### MOST RECENT MARKET EVENT
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Filter holdings strictly by PAN.
+2. Group by Sector__c and calculate total value per sector.
+3. Calculate total portfolio value.
+4. Identify Market Event Industry__c and Sentiment.
+5. Match sector using mapping rules.
+
+6. Market Impact Logic:
+- If matched:
+ {Sector}: {Positive/Negative} - {short reason from market event}
+- If not matched:
+ {Sector}: No significant impact
+
+### Output Format (STRICT)
+
+{Account Name} | PAN: {PAN}
+
+Portfolio Value: ₹{Total Value}
+
+Sector Exposure:
+- {Sector}: ₹{Value}
+- {Sector}: ₹{Value}
+
+Market Impact:
+- {Sector}: {Impact}
+
+Advisory:
+{One short professional advisory line}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_10</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a short WhatsApp message using only the provided data.
+
+### Rules
+- Use ONLY records where PAN = {!$Input:Account.PAN__c}
+- Do NOT show individual stock names
+- Group data strictly by Sector__c
+- Calculate total value per sector
+- Show ONLY sectors with data
+- Max 900 characters
+- Keep message short, structured, and WhatsApp-friendly
+- No emojis, no long paragraphs, no repetition
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### MOST RECENT MARKET EVENT
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Filter holdings strictly by PAN.
+2. Group by Sector__c and calculate total value per sector.
+3. Calculate total portfolio value.
+4. Identify Market Event Industry__c and Sentiment.
+5. Match sector using mapping rules.
+
+6. Market Impact Logic:
+- If matched:
+ {Sector}: {Positive/Negative} - {short reason from market event}
+- If not matched:
+ {Sector}: No significant impact
+
+### Output Format (STRICT)
+
+{Account Name} | PAN: {PAN}
+
+Portfolio Value: ₹{Total Value}
+
+Sector Exposure:
+- {Sector}: ₹{Value}
+- {Sector}: ₹{Value}
+
+Market Impact:
+- {Sector}: {Impact}
+
+Advisory:
+{One short professional advisory line}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_11</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a concise client summary using only the provided data.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### Most Recent Market Event
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Show ONLY Demat records where PAN = {!$Input:Account.PAN__c}.
+2. For each holding, show:
+  - Stock Name
+  - Quantity
+  - Market Value
+3. Identify Sector__c for each holding.
+4. Match Sector with Market Event Industry using mapping rules.
+5. If matched → explain impact (Positive/Negative) with stock name.
+  If not matched → write &quot;No relevant market event&quot;.
+6. Calculate total portfolio value (filtered records only).
+
+### Output
+Provide a short, clear summary. No long paragraphs, no extra data.
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_12</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a concise client summary using only the provided data.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### Most Recent Market Event
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Show ONLY Demat records where PAN = {!$Input:Account.PAN__c}.
+2. For each holding, show:
+  - Stock Name
+  - Quantity
+  - Market Value
+3. Identify Sector__c for each holding.
+4. Match Sector with Market Event Industry using mapping rules.
+5. If matched → explain impact (Positive/Negative) with stock name.
+  If not matched → write &quot;No relevant market event&quot;.
+6. Calculate total portfolio value (filtered records only).
+
+### Output
+Provide a short, clear summary. No long paragraphs, no extra data.
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>PAN_Number__c EQUALS {!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;,&quot;PAN&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_13</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a concise client summary using only the provided data.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### Most Recent Market Event
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Show ONLY Demat records where PAN = {!$Input:Account.PAN__c}.
+2. For each holding, show:
+ - Stock Name
+ - Quantity
+ - Market Value
+3. Identify Sector__c for each holding.
+4. Match Sector with Market Event Industry using mapping rules.
+5. If matched → explain impact (Positive/Negative) with stock name.
+ If not matched → write &quot;No relevant market event&quot;.
+6. Calculate total portfolio value (filtered records only).
+
+### Output
+Provide a short, clear summary. No long paragraphs, no extra data.
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>PAN_Number__c EQUALS {!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;,&quot;PAN&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_14</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>### Instructions
+You are a Financial Relationship Manager. Generate a concise client summary using only the provided data.
+
+### CRM Account Data
+Account Name: {!$Input:Account.Name}
+PAN Number: {!$Input:Account.PAN__c}
+Relationship Manager: {!$Input:Account.Owner.Name}
+
+### Data Cloud Demat Holdings
+{!$EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3.results}
+
+### Most Recent Market Event
+{!$Flow:Market_Event_Data_Trigger.Prompt}
+
+### Industry Mapping Rules
+- Technology = IT
+- Healthcare = Pharma
+- Financials = Banking
+- FMCG = FMCG
+- Industrials / Materials = Cement
+- Energy / Utilities = Conglomerate
+
+### Task
+1. Show ONLY Demat records where PAN = {!$Input:Account.PAN__c}.
+2. For each holding, show:
+ - Stock Name
+ - Quantity
+ - Market Value
+3. Identify Sector__c for each holding.
+4. Match Sector with Market Event Industry using mapping rules.
+5. If matched → explain impact (Positive/Negative) with stock name.
+ If not matched → write &quot;No relevant market event&quot;.
+6. Calculate total portfolio value (filtered records only).
+7. Do NOT show calculation steps or corrections. Show ONLY final values.
+8. Thank You Message In Last 
+
+### Output
+Provide a short, clear summary. No long paragraphs, no extra data.
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Account</apiName>
+            <definition>SOBJECT://Account</definition>
+            <masterLabel>Account</masterLabel>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>flow://Market_Event_Data_Trigger</definition>
+            <label>Market Event Data Trigger</label>
+            <referenceName>Flow:Market_Event_Data_Trigger</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/DematHolding_Retriever_1Cx_kHZbd821ca3</definition>
+            <label>DematHolding Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>PAN_Number__c EQUALS {!$Input:Account.PAN__c}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://List&lt;String&gt;</definition>
+                <isRequired>false</isRequired>
+                <parameterName>outputFieldNames</parameterName>
+                <valueExpression>[&quot;Stock&quot;,&quot;Quantity&quot;,&quot;sector&quot;,&quot;Buy_Price&quot;,&quot;Market_Value&quot;,&quot;PAN&quot;]</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:DematHolding_Retriever_1Cx_kHZbd821ca3</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>L2WeBjX8755KPWQtx+hGO1nc/6sza4hvxJbZA6En6VM=_15</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
